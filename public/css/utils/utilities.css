@@ -21,7 +21,7 @@
 .gap-4 { gap: 16px; }
 .gap-5 { gap: 20px; }
 .gap-6 { gap: 24px; }
-.flex-1 { flex: 1; }
+.flex-1 { flex: 1; min-width: 0; }
 
 /* Text */
 .text-center { text-align: center; }
@@ -34,6 +34,7 @@
 .text-3xl { font-size: 1.875rem; }
 .text-4xl { font-size: 2.25rem; }
 .text-5xl { font-size: 3rem; }
+.font-mono { font-family: var(--font-mono); font-size: 0.9em; }
 .font-medium { font-weight: 500; }
 .font-semibold { font-weight: 600; }
 .font-bold { font-weight: 700; }
@@ -182,7 +183,7 @@
 .delay-4 { animation-delay: 0.4s; opacity: 0; }
 .delay-5 { animation-delay: 0.5s; opacity: 0; }
 
-/* Responsive */
+/* Responsive - Tablet */
 @media (max-width: 768px) {
   .d-md-none { display: none !important; }
   .d-md-flex { display: flex; }
@@ -193,10 +194,37 @@
   .gap-md-3 { gap: 12px; }
 }
 
+/* Responsive - Small mobile */
 @media (max-width: 480px) {
   .d-sm-none { display: none !important; }
   .d-sm-flex { display: flex; }
   .d-sm-block { display: block; }
+
+  .flex-wrap .form-select,
+  .flex-wrap .form-input {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+
+  .page-header.d-flex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .gap-3 { gap: 8px; }
+  .gap-4 { gap: 10px; }
+  .gap-5 { gap: 12px; }
+  .gap-6 { gap: 14px; }
+
+  .mt-8 { margin-top: 20px; }
+  .mb-4 { margin-bottom: 12px; }
+  .mb-6 { margin-bottom: 16px; }
+
+  .p-6 { padding: 16px; }
+  .p-8 { padding: 20px; }
+  .px-6 { padding-left: 16px; padding-right: 16px; }
 }
 
 /* Badge */

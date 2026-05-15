@@ -66,6 +66,10 @@
   gap: 12px;
 }
 
+.nav-actions-mobile {
+  display: none;
+}
+
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -117,6 +121,20 @@
 
   .nav-actions {
     display: none;
+  }
+
+  .nav-actions-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    margin-top: 8px;
+  }
+
+  .nav-actions-mobile .btn {
+    width: 100%;
+    justify-content: center;
   }
 
   .nav-toggle {

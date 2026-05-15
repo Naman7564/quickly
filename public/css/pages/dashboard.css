@@ -1,6 +1,9 @@
 /* Dashboard page specific styles */
 .page-section {
   animation: fadeIn 0.3s ease;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 /* Chart bars */
@@ -8,12 +11,15 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
 }
 
 .chart-bar-item {
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%;
+  min-width: 0;
 }
 
 .chart-bar-label {
@@ -22,6 +28,9 @@
   font-weight: 500;
   text-align: right;
   flex-shrink: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .chart-bar-track {
@@ -30,6 +39,7 @@
   background: var(--bg-hover);
   border-radius: 12px;
   overflow: hidden;
+  min-width: 0;
 }
 
 .chart-bar-fill {
@@ -43,6 +53,7 @@
   font-size: 0.85rem;
   font-weight: 700;
   flex-shrink: 0;
+  text-align: right;
 }
 
 /* Notification items */
@@ -68,6 +79,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
+  min-width: 0;
 }
 
 /* Online toggle */
@@ -81,6 +93,7 @@
   position: relative;
   width: 52px;
   height: 28px;
+  flex-shrink: 0;
 }
 
 .toggle-switch input {
@@ -141,10 +154,73 @@
   font-size: 0.9rem;
 }
 
-/* Responsive */
-@media (max-width: 640px) {
+/* Responsive - Tablet */
+@media (max-width: 768px) {
   .chart-bar-label {
-    width: 70px;
-    font-size: 0.75rem;
+    width: 80px;
+    font-size: 0.8rem;
+  }
+
+  .chart-bar-track {
+    height: 20px;
+  }
+
+  .chart-bar-value {
+    width: 32px;
+    font-size: 0.8rem;
+  }
+
+  .notification-item {
+    padding: 10px 12px;
+  }
+}
+
+/* Responsive - Small mobile */
+@media (max-width: 480px) {
+  .chart-bar-label {
+    width: 56px;
+    font-size: 0.65rem;
+  }
+
+  .chart-bar-track {
+    height: 16px;
+  }
+
+  .chart-bar-value {
+    width: 24px;
+    font-size: 0.65rem;
+  }
+
+  .chart-bar-item {
+    gap: 6px;
+  }
+
+  .notification-item {
+    padding: 8px 10px;
+    margin-bottom: 2px;
+  }
+
+  .notification-item .font-semibold {
+    font-size: 0.8rem;
+  }
+
+  .notification-item .text-muted {
+    font-size: 0.7rem;
+  }
+
+  .empty-state {
+    padding: 32px 12px;
+  }
+
+  .empty-state-icon {
+    font-size: 2rem;
+  }
+
+  .empty-state h3 {
+    font-size: 0.95rem;
+  }
+
+  .empty-state p {
+    font-size: 0.8rem;
   }
 }
