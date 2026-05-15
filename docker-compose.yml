@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  quickly:
+    build: .
+    container_name: quickly-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - JWT_SECRET=${JWT_SECRET:-quickly_jwt_secret_change_me}
+      - DB_PATH=./data/quickly.db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

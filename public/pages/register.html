@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Quickly</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/utils/variables.css">
+  <link rel="stylesheet" href="/css/utils/base.css">
+  <link rel="stylesheet" href="/css/utils/utilities.css">
+  <link rel="stylesheet" href="/css/components/buttons.css">
+  <link rel="stylesheet" href="/css/components/forms.css">
+  <link rel="stylesheet" href="/css/pages/auth.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%234F46E5'/><text x='50%25' y='55%25' text-anchor='middle' dominant-baseline='middle' font-size='18' font-weight='bold' fill='white'>Q</text></svg>">
+</head>
+<body>
+  <div class="auth-layout">
+    <div class="auth-left">
+      <div class="auth-left-content">
+        <a href="/" class="d-flex items-center gap-3 mb-8" style="text-decoration:none">
+          <div class="nav-logo">Q</div>
+          <span class="font-bold text-2xl" style="color:white">Quickly</span>
+        </a>
+        <h1>Join Quickly</h1>
+        <p>Create your account and start managing deliveries today.</p>
+        <div class="auth-features">
+          <div class="auth-feature">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            Free to get started
+          </div>
+          <div class="auth-feature">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            No hidden charges
+          </div>
+          <div class="auth-feature">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            24/7 support
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="auth-right">
+      <div class="auth-form-wrapper">
+        <div class="auth-form-header">
+          <h2>Create Account</h2>
+          <p>Fill in your details to get started</p>
+        </div>
+
+        <!-- Role Selection -->
+        <div class="role-selector" id="roleSelector">
+          <button class="role-option active" data-role="shop_owner" onclick="selectRole('shop_owner')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+            <span>Shop Owner</span>
+            <small>Create deliveries</small>
+          </button>
+          <button class="role-option" data-role="driver" onclick="selectRole('driver')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-4"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <span>Delivery Driver</span>
+            <small>Accept deliveries</small>
+          </button>
+        </div>
+
+        <form id="registerForm" class="auth-form">
+          <input type="hidden" id="role" value="shop_owner">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="full_name" class="form-input" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone</label>
+              <input type="tel" id="phone" class="form-input" placeholder="9999999999" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="email" class="form-input" placeholder="you@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="password" class="form-input" placeholder="Min 6 characters" required minlength="6">
+          </div>
+
+          <!-- Shop Owner Fields -->
+          <div id="shopFields">
+            <div class="form-group">
+              <label class="form-label">Shop Name</label>
+              <input type="text" id="shop_name" class="form-input" placeholder="Your shop name">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Shop Type</label>
+                <select id="shop_type" class="form-select">
+                  <option value="">Select type</option>
+                  <option value="General Store">General Store</option>
+                  <option value="Restaurant">Restaurant</option>
+                  <option value="Pharmacy">Pharmacy</option>
+                  <option value="Grocery">Grocery</option>
+                  <option value="Electronics">Electronics</option>
+                  <option value="Clothing">Clothing</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">City</label>
+                <input type="text" id="city" class="form-input" placeholder="Your city">
+              </div>
+            </div>
+          </div>
+
+          <!-- Driver Fields -->
+          <div id="driverFields" style="display:none;">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Vehicle Type</label>
+                <select id="vehicle_type" class="form-select">
+                  <option value="auto">Auto Rickshaw</option>
+                  <option value="lorry">Cargo Lorry</option>
+                  <option value="bike">Bike</option>
+                  <option value="van">Mini Van</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Vehicle Number</label>
+                <input type="text" id="vehicle_number" class="form-input" placeholder="KA-01-AB-1234">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">License Number</label>
+              <input type="text" id="license_number" class="form-input" placeholder="Your license number">
+            </div>
+          </div>
+
+          <div id="registerError" class="form-error" style="display:none; margin-bottom: 16px;"></div>
+
+          <button type="submit" id="registerBtn" class="btn btn-primary btn-lg btn-block">
+            Create Account
+          </button>
+        </form>
+
+        <p class="auth-footer-text">
+          Already have an account? <a href="/login">Sign in</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/utils/api.js"></script>
+  <script src="/js/utils/auth.js"></script>
+  <script src="/js/utils/toast.js"></script>
+  <script>
+    if (Auth.isLoggedIn()) Auth.redirectToDashboard();
+
+    // Check URL params for role
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('role') === 'driver') selectRole('driver');
+
+    function selectRole(role) {
+      document.getElementById('role').value = role;
+      document.querySelectorAll('.role-option').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.role === role);
+      });
+      document.getElementById('shopFields').style.display = role === 'shop_owner' ? 'block' : 'none';
+      document.getElementById('driverFields').style.display = role === 'driver' ? 'block' : 'none';
+    }
+
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('registerBtn');
+      const errorEl = document.getElementById('registerError');
+      errorEl.style.display = 'none';
+      btn.classList.add('loading');
+      btn.disabled = true;
+
+      try {
+        const body = {
+          email: document.getElementById('email').value,
+          password: document.getElementById('password').value,
+          full_name: document.getElementById('full_name').value,
+          phone: document.getElementById('phone').value,
+          role: document.getElementById('role').value
+        };
+
+        if (body.role === 'shop_owner') {
+          body.shop_name = document.getElementById('shop_name').value;
+          body.shop_type = document.getElementById('shop_type').value;
+          body.city = document.getElementById('city').value;
+        } else {
+          body.vehicle_type = document.getElementById('vehicle_type').value;
+          body.vehicle_number = document.getElementById('vehicle_number').value;
+          body.license_number = document.getElementById('license_number').value;
+        }
+
+        const res = await api.post('/auth/register', body);
+
+        if (res.success) {
+          api.setToken(res.data.token);
+          Auth.setUser(res.data.user);
+          toast.success('Account created!', 'Welcome to Quickly');
+          setTimeout(() => Auth.redirectToDashboard(), 500);
+        }
+      } catch (err) {
+        errorEl.textContent = err.message;
+        errorEl.style.display = 'block';
+      } finally {
+        btn.classList.remove('loading');
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

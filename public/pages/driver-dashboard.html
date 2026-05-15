@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver Dashboard - Quickly</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/utils/variables.css">
+  <link rel="stylesheet" href="/css/utils/base.css">
+  <link rel="stylesheet" href="/css/utils/utilities.css">
+  <link rel="stylesheet" href="/css/components/buttons.css">
+  <link rel="stylesheet" href="/css/components/forms.css">
+  <link rel="stylesheet" href="/css/components/cards.css">
+  <link rel="stylesheet" href="/css/components/tables.css">
+  <link rel="stylesheet" href="/css/components/modals.css">
+  <link rel="stylesheet" href="/css/components/sidebar.css">
+  <link rel="stylesheet" href="/css/pages/dashboard.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%234F46E5'/><text x='50%25' y='55%25' text-anchor='middle' dominant-baseline='middle' font-size='18' font-weight='bold' fill='white'>Q</text></svg>">
+</head>
+<body>
+  <div class="dashboard-layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">Q</div>
+        <span class="sidebar-brand">Quickly</span>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Main</div>
+          <a class="sidebar-link active" data-page="overview" onclick="showPage('overview')">
+            <span class="sidebar-link-icon">&#9632;</span>
+            Dashboard
+          </a>
+          <a class="sidebar-link" data-page="available" onclick="showPage('available')">
+            <span class="sidebar-link-icon">&#128666;</span>
+            Available Parcels
+          </a>
+          <a class="sidebar-link" data-page="my-parcels" onclick="showPage('my-parcels')">
+            <span class="sidebar-link-icon">&#9744;</span>
+            My Deliveries
+            <span class="sidebar-link-badge" id="activeCount">0</span>
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Earnings</div>
+          <a class="sidebar-link" data-page="earnings" onclick="showPage('earnings')">
+            <span class="sidebar-link-icon">&#36;</span>
+            Earnings
+          </a>
+          <a class="sidebar-link" data-page="history" onclick="showPage('history')">
+            <span class="sidebar-link-icon">&#128336;</span>
+            History
+          </a>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Account</div>
+          <a class="sidebar-link" data-page="notifications" onclick="showPage('notifications')">
+            <span class="sidebar-link-icon">&#128276;</span>
+            Notifications
+            <span class="sidebar-link-badge" id="notifBadge" style="display:none">0</span>
+          </a>
+          <a class="sidebar-link" data-page="profile" onclick="showPage('profile')">
+            <span class="sidebar-link-icon">&#128100;</span>
+            Profile
+          </a>
+        </div>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="sidebar-user" onclick="Auth.logout()">
+          <div class="sidebar-user-avatar" id="userAvatar">D</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" id="userName">Driver</div>
+            <div class="sidebar-user-role">Driver</div>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </div>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <main class="main-content">
+      <div class="topbar">
+        <div class="topbar-left">
+          <button class="hamburger" onclick="toggleSidebar()">&#9776;</button>
+          <h2 class="topbar-title" id="pageTitle">Dashboard</h2>
+        </div>
+        <div class="topbar-right">
+          <button class="topbar-btn" onclick="toggleTheme()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          </button>
+          <button class="topbar-btn" onclick="showPage('notifications')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="notification-dot" id="notifDot" style="display:none"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <!-- Overview -->
+        <div class="page-section" id="page-overview">
+          <div class="page-header">
+            <div class="d-flex justify-between items-center flex-wrap gap-4">
+              <div>
+                <h1>Welcome, <span id="welcomeName">Driver</span>!</h1>
+                <p>Manage your deliveries and track earnings</p>
+              </div>
+              <div class="online-toggle">
+                <label class="toggle-switch">
+                  <input type="checkbox" id="onlineToggle" onchange="toggleOnline()">
+                  <span class="toggle-slider"></span>
+                </label>
+                <span id="onlineLabel" class="font-semibold text-sm">Offline</span>
+              </div>
+            </div>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-card animate-fade-in">
+              <div class="stat-card-icon primary">&#128666;</div>
+              <div class="stat-card-value" id="statActive">0</div>
+              <div class="stat-card-label">Active Deliveries</div>
+            </div>
+            <div class="stat-card animate-fade-in delay-1">
+              <div class="stat-card-icon secondary">&#10003;</div>
+              <div class="stat-card-value" id="statToday">0</div>
+              <div class="stat-card-label">Today's Deliveries</div>
+            </div>
+            <div class="stat-card animate-fade-in delay-2">
+              <div class="stat-card-icon accent">&#36;</div>
+              <div class="stat-card-value" id="statTodayEarnings">&#8377;0</div>
+              <div class="stat-card-label">Today's Earnings</div>
+            </div>
+            <div class="stat-card animate-fade-in delay-3">
+              <div class="stat-card-icon danger">&#9733;</div>
+              <div class="stat-card-value" id="statRating">5.0</div>
+              <div class="stat-card-label">Rating</div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-between items-center mt-8 mb-4">
+            <h3>Current Deliveries</h3>
+          </div>
+          <div id="currentDeliveries" class="d-grid gap-3">
+            <div class="text-center p-6"><div class="spinner mx-auto"></div></div>
+          </div>
+        </div>
+
+        <!-- Available Parcels -->
+        <div class="page-section" id="page-available" style="display:none">
+          <div class="page-header">
+            <h1>Available Parcels</h1>
+            <p>Pick up delivery requests near you</p>
+          </div>
+          <div id="availableParcels" class="d-grid gap-3">
+            <div class="text-center p-6"><div class="spinner mx-auto"></div></div>
+          </div>
+        </div>
+
+        <!-- My Parcels -->
+        <div class="page-section" id="page-my-parcels" style="display:none">
+          <div class="page-header">
+            <h1>My Deliveries</h1>
+            <p>All your assigned and completed deliveries</p>
+          </div>
+          <div class="d-flex gap-3 mb-4">
+            <select class="form-select" style="width:auto" id="filterMyStatus" onchange="loadMyParcels()">
+              <option value="">All Status</option>
+              <option value="accepted">Accepted</option>
+              <option value="picked_up">Picked Up</option>
+              <option value="in_transit">In Transit</option>
+              <option value="delivered">Delivered</option>
+            </select>
+          </div>
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Tracking ID</th>
+                  <th>Customer</th>
+                  <th>Pickup</th>
+                  <th>Delivery</th>
+                  <th>Status</th>
+                  <th>Charge</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="myParcelsTable">
+                <tr><td colspan="7" class="table-empty"><div class="spinner mx-auto"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Earnings -->
+        <div class="page-section" id="page-earnings" style="display:none">
+          <div class="page-header">
+            <h1>Earnings</h1>
+            <p>Track your delivery earnings</p>
+          </div>
+          <div class="stats-grid mb-6">
+            <div class="stat-card">
+              <div class="stat-card-icon primary">&#36;</div>
+              <div class="stat-card-value" id="earnToday">&#8377;0</div>
+              <div class="stat-card-label">Today</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-icon secondary">&#36;</div>
+              <div class="stat-card-value" id="earnWeek">&#8377;0</div>
+              <div class="stat-card-label">This Week</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-icon accent">&#36;</div>
+              <div class="stat-card-value" id="earnMonth">&#8377;0</div>
+              <div class="stat-card-label">This Month</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-icon danger">&#36;</div>
+              <div class="stat-card-value" id="earnTotal">&#8377;0</div>
+              <div class="stat-card-label">Total Earnings</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- History -->
+        <div class="page-section" id="page-history" style="display:none">
+          <div class="page-header">
+            <h1>Delivery History</h1>
+            <p>Your past deliveries</p>
+          </div>
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Tracking ID</th>
+                  <th>Customer</th>
+                  <th>Route</th>
+                  <th>Earnings</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="historyTable">
+                <tr><td colspan="5" class="table-empty"><div class="spinner mx-auto"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="page-section" id="page-notifications" style="display:none">
+          <div class="page-header d-flex justify-between items-center">
+            <div>
+              <h1>Notifications</h1>
+              <p>Stay updated</p>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="markAllRead()">Mark all read</button>
+          </div>
+          <div id="notificationList"><div class="text-center p-6"><div class="spinner mx-auto"></div></div></div>
+        </div>
+
+        <!-- Profile -->
+        <div class="page-section" id="page-profile" style="display:none">
+          <div class="page-header">
+            <h1>Profile</h1>
+            <p>Manage your driver profile</p>
+          </div>
+          <div class="d-grid gap-5" style="max-width: 640px;">
+            <div class="card">
+              <div class="card-header"><h3>Personal Info</h3></div>
+              <div class="card-body">
+                <form id="profileForm">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">Full Name</label>
+                      <input type="text" class="form-input" id="profName">
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Phone</label>
+                      <input type="tel" class="form-input" id="profPhone">
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><h3>Vehicle Details</h3></div>
+              <div class="card-body">
+                <form id="vehicleForm">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">Vehicle Type</label>
+                      <select class="form-select" id="profVehicleType">
+                        <option value="auto">Auto Rickshaw</option>
+                        <option value="lorry">Cargo Lorry</option>
+                        <option value="bike">Bike</option>
+                        <option value="van">Mini Van</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Vehicle Number</label>
+                      <input type="text" class="form-input" id="profVehicleNumber">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">License Number</label>
+                    <input type="text" class="form-input" id="profLicense">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update Vehicle</button>
+                </form>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><h3>Change Password</h3></div>
+              <div class="card-body">
+                <form id="passwordForm">
+                  <div class="form-group">
+                    <label class="form-label">Current Password</label>
+                    <input type="password" class="form-input" id="profCurrentPw">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">New Password</label>
+                    <input type="password" class="form-input" id="profNewPw" minlength="6">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update Password</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- OTP Modal -->
+  <div class="modal-overlay" id="otpModal">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <h3>Verify Delivery OTP</h3>
+        <button class="modal-close" onclick="closeModal('otpModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-sm text-muted mb-4">Ask the customer for the 4-digit OTP to confirm delivery.</p>
+        <div class="form-group">
+          <label class="form-label">Enter OTP</label>
+          <input type="text" class="form-input font-mono text-center text-2xl" id="otpInput" maxlength="4" pattern="[0-9]{4}" placeholder="0000">
+        </div>
+        <button class="btn btn-primary btn-block" id="verifyOtpBtn" onclick="verifyOTP()">Verify & Complete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/utils/api.js"></script>
+  <script src="/js/utils/auth.js"></script>
+  <script src="/js/utils/toast.js"></script>
+  <script src="/js/utils/helpers.js"></script>
+  <script>
+    if (!Auth.requireAuth(['driver'])) throw new Error('Unauthorized');
+
+    let currentUser = Auth.getUser();
+    let currentParcelId = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      document.getElementById('userName').textContent = currentUser?.full_name || 'Driver';
+      document.getElementById('userAvatar').textContent = Helpers.getInitials(currentUser?.full_name);
+      document.getElementById('welcomeName').textContent = currentUser?.full_name?.split(' ')[0] || 'Driver';
+      await loadDriverStats();
+      loadCurrentDeliveries();
+      loadNotifications();
+    });
+
+    function showPage(page) {
+      document.querySelectorAll('.page-section').forEach(s => s.style.display = 'none');
+      document.getElementById(`page-${page}`).style.display = 'block';
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      document.querySelector(`[data-page="${page}"]`)?.classList.add('active');
+
+      const titles = {
+        overview: 'Dashboard', available: 'Available Parcels', 'my-parcels': 'My Deliveries',
+        earnings: 'Earnings', history: 'History', notifications: 'Notifications', profile: 'Profile'
+      };
+      document.getElementById('pageTitle').textContent = titles[page] || 'Dashboard';
+
+      if (page === 'available') loadAvailableParcels();
+      if (page === 'my-parcels') loadMyParcels();
+      if (page === 'earnings') loadEarnings();
+      if (page === 'history') loadHistory();
+      if (page === 'notifications') loadNotifications();
+      if (page === 'profile') loadProfile();
+
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('active');
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('quickly_theme', next);
+    }
+    const savedTheme = localStorage.getItem('quickly_theme');
+    if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // Online toggle
+    async function toggleOnline() {
+      const isOnline = document.getElementById('onlineToggle').checked;
+      document.getElementById('onlineLabel').textContent = isOnline ? 'Online' : 'Offline';
+      document.getElementById('onlineLabel').className = `font-semibold text-sm ${isOnline ? 'text-success' : 'text-muted'}`;
+
+      try {
+        await api.put('/drivers/toggle-online', { is_online: isOnline });
+        toast.info(isOnline ? 'You are now online' : 'You are now offline');
+      } catch (err) { toast.error('Failed to update status'); }
+    }
+
+    // Stats
+    async function loadDriverStats() {
+      try {
+        const res = await api.get('/drivers/stats');
+        if (res.success) {
+          document.getElementById('statActive').textContent = res.data.active_parcels;
+          document.getElementById('statToday').textContent = res.data.today_deliveries;
+          document.getElementById('statTodayEarnings').textContent = Helpers.formatCurrency(res.data.today_earnings);
+          document.getElementById('statRating').textContent = (res.data.rating || 5).toFixed(1);
+          document.getElementById('activeCount').textContent = res.data.active_parcels;
+          document.getElementById('onlineToggle').checked = res.data.is_online;
+          document.getElementById('onlineLabel').textContent = res.data.is_online ? 'Online' : 'Offline';
+          document.getElementById('onlineLabel').className = `font-semibold text-sm ${res.data.is_online ? 'text-success' : 'text-muted'}`;
+        }
+      } catch (err) { console.error(err); }
+    }
+
+    // Current deliveries
+    async function loadCurrentDeliveries() {
+      try {
+        const res = await api.get('/parcels', { status: 'accepted,picked_up,in_transit' });
+        if (res.success) {
+          const active = res.data.filter(p => ['accepted', 'picked_up', 'in_transit'].includes(p.status));
+          if (active.length === 0) {
+            document.getElementById('currentDeliveries').innerHTML = '<div class="card"><div class="card-body text-center p-6"><p class="text-muted">No active deliveries. Check available parcels to start earning!</p><button class="btn btn-primary mt-4" onclick="showPage(\'available\')">Browse Parcels</button></div></div>';
+          } else {
+            document.getElementById('currentDeliveries').innerHTML = active.map(p => `
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-between items-center mb-3">
+                    <div>
+                      <div class="font-mono text-xs text-muted">${p.tracking_id}</div>
+                      <div class="font-semibold">${p.customer_name}</div>
+                    </div>
+                    ${Helpers.getStatusBadge(p.status)}
+                  </div>
+                  <div class="d-grid gap-2 mb-3" style="grid-template-columns: 1fr 1fr; font-size: 0.85rem;">
+                    <div><span class="text-muted">Pickup:</span> ${p.pickup_address}</div>
+                    <div><span class="text-muted">Delivery:</span> ${p.delivery_address}</div>
+                    <div><span class="text-muted">Customer:</span> ${p.customer_phone}</div>
+                    <div><span class="text-muted">Charge:</span> ${Helpers.formatCurrency(p.delivery_charge)}</div>
+                  </div>
+                  <div class="d-flex gap-2">
+                    ${p.status === 'accepted' ? `
+                      <button class="btn btn-primary btn-sm" onclick="updateStatus(${p.id}, 'picked_up')">Mark Picked Up</button>
+                      <button class="btn btn-danger btn-sm" onclick="updateStatus(${p.id}, 'cancelled')">Cancel</button>
+                    ` : ''}
+                    ${p.status === 'picked_up' ? `
+                      <button class="btn btn-primary btn-sm" onclick="updateStatus(${p.id}, 'in_transit')">Start Transit</button>
+                    ` : ''}
+                    ${p.status === 'in_transit' ? `
+                      <button class="btn btn-secondary btn-sm" onclick="openOtpModal(${p.id})">Complete Delivery</button>
+                    ` : ''}
+                    <a href="tel:${p.customer_phone}" class="btn btn-outline btn-sm">Call Customer</a>
+                  </div>
+                </div>
+              </div>
+            `).join('');
+          }
+        }
+      } catch (err) { console.error(err); }
+    }
+
+    // Update status
+    async function updateStatus(id, status) {
+      try {
+        const res = await api.put(`/parcels/${id}/status`, { status });
+        if (res.success) {
+          toast.success(`Status updated to ${Helpers.getStatusLabel(status)}`);
+          loadCurrentDeliveries();
+          loadDriverStats();
+        }
+      } catch (err) { toast.error(err.message); }
+    }
+
+    // OTP
+    function openOtpModal(id) {
+      currentParcelId = id;
+      document.getElementById('otpInput').value = '';
+      openModal('otpModal');
+    }
+
+    async function verifyOTP() {
+      const otp = document.getElementById('otpInput').value;
+      if (otp.length !== 4) { toast.warning('Enter 4-digit OTP'); return; }
+
+      try {
+        const verifyRes = await api.post(`/parcels/${currentParcelId}/verify-otp`, { otp });
+        if (verifyRes.success) {
+          const res = await api.put(`/parcels/${currentParcelId}/status`, { status: 'delivered' });
+          if (res.success) {
+            toast.success('Delivery completed!');
+            closeModal('otpModal');
+            loadCurrentDeliveries();
+            loadDriverStats();
+          }
+        }
+      } catch (err) { toast.error(err.message); }
+    }
+
+    // Available parcels
+    async function loadAvailableParcels() {
+      try {
+        const res = await api.get('/drivers/available-parcels');
+        if (res.success) {
+          const container = document.getElementById('availableParcels');
+          if (res.data.length === 0) {
+            container.innerHTML = '<div class="card"><div class="card-body text-center p-6"><p class="text-muted">No parcels available right now. Stay online to receive new requests!</p></div></div>';
+          } else {
+            container.innerHTML = res.data.map(p => `
+              <div class="card animate-fade-in">
+                <div class="card-body">
+                  <div class="d-flex justify-between items-center mb-3">
+                    <div>
+                      <div class="font-mono text-xs text-muted">${p.tracking_id}</div>
+                      <div class="font-semibold">${p.customer_name}</div>
+                    </div>
+                    <div class="font-bold text-lg">${Helpers.formatCurrency(p.delivery_charge)}</div>
+                  </div>
+                  <div class="d-grid gap-2 mb-3" style="font-size: 0.85rem;">
+                    <div><span class="text-muted">From:</span> ${p.pickup_address}</div>
+                    <div><span class="text-muted">To:</span> ${p.delivery_address}</div>
+                    <div><span class="text-muted">Type:</span> ${p.parcel_type || 'General'} | <span class="text-muted">Weight:</span> ${p.weight || 0}kg</div>
+                  </div>
+                  <button class="btn btn-primary btn-block" onclick="acceptParcel(${p.id})">Accept Delivery</button>
+                </div>
+              </div>
+            `).join('');
+          }
+        }
+      } catch (err) { toast.error('Failed to load parcels'); }
+    }
+
+    async function acceptParcel(id) {
+      try {
+        const res = await api.put(`/parcels/${id}/accept`);
+        if (res.success) {
+          toast.success('Parcel accepted!');
+          loadAvailableParcels();
+          loadCurrentDeliveries();
+          loadDriverStats();
+        }
+      } catch (err) { toast.error(err.message); }
+    }
+
+    // My parcels
+    async function loadMyParcels() {
+      const status = document.getElementById('filterMyStatus').value;
+      try {
+        const res = await api.get('/parcels', { status });
+        if (res.success) {
+          document.getElementById('myParcelsTable').innerHTML = res.data.length === 0
+            ? '<tr><td colspan="7" class="table-empty"><p>No parcels found</p></td></tr>'
+            : res.data.map(p => `
+              <tr>
+                <td class="font-mono text-sm">${p.tracking_id}</td>
+                <td>${p.customer_name}</td>
+                <td class="text-sm">${Helpers.truncate(p.pickup_address, 25)}</td>
+                <td class="text-sm">${Helpers.truncate(p.delivery_address, 25)}</td>
+                <td>${Helpers.getStatusBadge(p.status)}</td>
+                <td>${Helpers.formatCurrency(p.delivery_charge)}</td>
+                <td class="text-sm text-muted">${Helpers.formatDate(p.created_at)}</td>
+              </tr>
+            `).join('');
+        }
+      } catch (err) { toast.error('Failed to load parcels'); }
+    }
+
+    // Earnings
+    async function loadEarnings() {
+      try {
+        const res = await api.get('/analytics/dashboard');
+        if (res.success) {
+          document.getElementById('earnToday').textContent = Helpers.formatCurrency(res.data.today_earnings);
+          document.getElementById('earnWeek').textContent = Helpers.formatCurrency(res.data.weekly_earnings);
+          document.getElementById('earnMonth').textContent = Helpers.formatCurrency(res.data.monthly_earnings);
+          document.getElementById('earnTotal').textContent = Helpers.formatCurrency(res.data.total_earnings);
+        }
+      } catch (err) { console.error(err); }
+    }
+
+    // History
+    async function loadHistory() {
+      try {
+        const res = await api.get('/parcels', { status: 'delivered', limit: 50 });
+        if (res.success) {
+          document.getElementById('historyTable').innerHTML = res.data.length === 0
+            ? '<tr><td colspan="5" class="table-empty"><p>No delivery history</p></td></tr>'
+            : res.data.map(p => `
+              <tr>
+                <td class="font-mono text-sm">${p.tracking_id}</td>
+                <td>${p.customer_name}</td>
+                <td class="text-sm">${Helpers.truncate(p.pickup_address, 20)} &rarr; ${Helpers.truncate(p.delivery_address, 20)}</td>
+                <td class="font-semibold">${Helpers.formatCurrency(p.delivery_charge * 0.85)}</td>
+                <td class="text-sm text-muted">${Helpers.formatDate(p.delivered_at || p.created_at)}</td>
+              </tr>
+            `).join('');
+        }
+      } catch (err) { console.error(err); }
+    }
+
+    // Notifications
+    async function loadNotifications() {
+      try {
+        const res = await api.get('/notifications');
+        if (res.success) {
+          const { notifications, unread_count } = res.data;
+          if (unread_count > 0) {
+            document.getElementById('notifBadge').style.display = 'block';
+            document.getElementById('notifBadge').textContent = unread_count;
+            document.getElementById('notifDot').style.display = 'block';
+          } else {
+            document.getElementById('notifBadge').style.display = 'none';
+            document.getElementById('notifDot').style.display = 'none';
+          }
+          document.getElementById('notificationList').innerHTML = notifications.length === 0
+            ? '<div class="text-center p-6"><p class="text-muted">No notifications</p></div>'
+            : notifications.map(n => `
+              <div class="notification-item ${n.is_read ? '' : 'unread'}" onclick="markNotifRead(${n.id})">
+                <div class="font-semibold text-sm">${n.title}</div>
+                <div class="text-sm text-muted">${n.message}</div>
+                <div class="text-xs text-muted mt-1">${Helpers.formatDateTime(n.created_at)}</div>
+              </div>
+            `).join('');
+        }
+      } catch (err) { console.error(err); }
+    }
+
+    async function markNotifRead(id) { await api.put(`/notifications/${id}/read`); loadNotifications(); }
+    async function markAllRead() { await api.put('/notifications/all/read'); loadNotifications(); }
+
+    // Profile
+    async function loadProfile() {
+      try {
+        const res = await api.get('/auth/me');
+        if (res.success) {
+          document.getElementById('profName').value = res.data.full_name || '';
+          document.getElementById('profPhone').value = res.data.phone || '';
+          if (res.data.profile) {
+            document.getElementById('profVehicleType').value = res.data.profile.vehicle_type || 'auto';
+            document.getElementById('profVehicleNumber').value = res.data.profile.vehicle_number || '';
+            document.getElementById('profLicense').value = res.data.profile.license_number || '';
+          }
+        }
+      } catch (err) { console.error(err); }
+    }
+
+    document.getElementById('profileForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const res = await api.put('/profile', {
+          full_name: document.getElementById('profName').value,
+          phone: document.getElementById('profPhone').value
+        });
+        if (res.success) toast.success('Profile updated');
+      } catch (err) { toast.error('Failed to update'); }
+    });
+
+    document.getElementById('vehicleForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const res = await api.put('/drivers/profile', {
+          vehicle_type: document.getElementById('profVehicleType').value,
+          vehicle_number: document.getElementById('profVehicleNumber').value,
+          license_number: document.getElementById('profLicense').value
+        });
+        if (res.success) toast.success('Vehicle details updated');
+      } catch (err) { toast.error('Failed to update'); }
+    });
+
+    document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const res = await api.put('/profile/password', {
+          current_password: document.getElementById('profCurrentPw').value,
+          new_password: document.getElementById('profNewPw').value
+        });
+        if (res.success) { toast.success('Password updated'); e.target.reset(); }
+      } catch (err) { toast.error(err.message); }
+    });
+
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('active'); }));
+  </script>
+  <style>
+    .online-toggle { display: flex; align-items: center; gap: 12px; }
+    .toggle-switch { position: relative; width: 52px; height: 28px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 14px; cursor: pointer; transition: var(--transition); }
+    .toggle-slider::before { content: ''; position: absolute; width: 22px; height: 22px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: var(--transition); box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .toggle-switch input:checked + .toggle-slider { background: var(--secondary); }
+    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(24px); }
+    .notification-item { padding: 12px 16px; border-bottom: 1px solid var(--border-light); cursor: pointer; transition: var(--transition); }
+    .notification-item:hover { background: var(--bg-hover); }
+    .notification-item.unread { background: rgba(79, 70, 229, 0.05); border-left: 3px solid var(--primary); }
+  </style>
+</body>
+</html>
