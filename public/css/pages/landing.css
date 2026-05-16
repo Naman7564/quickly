@@ -65,6 +65,11 @@
     padding-top: 12px; border-top: 1px solid var(--border); margin-top: 4px;
   }
   .nav-actions-mobile .btn { width: 100%; justify-content: center; }
+  .nav-actions-mobile .btn-primary {
+    background: var(--primary-dark);
+    color: #ffffff !important;
+    font-weight: 700;
+  }
   .nav-toggle { display: flex; }
 }
 
