@@ -145,11 +145,8 @@
           <!-- Minimal Header -->
           <div class="parcels-header-minimal">
             <div class="parcels-header-top">
-              <div class="parcels-greeting">
-                <h2 class="parcels-greeting-text" id="greetingText">Good Morning <span class="greeting-wave">&#128075;</span></h2>
-                <p class="parcels-greeting-sub">Track your shipments easily</p>
-              </div>
-              <div class="parcels-avatar" id="parcelsAvatar">S</div>
+              <h2 class="parcels-greeting-text" id="greetingText">Good Morning <span class="greeting-wave">&#128075;</span></h2>
+              <p class="parcels-greeting-sub">Track your shipments easily</p>
             </div>
             <!-- Search Bar -->
             <div class="parcels-search-wrap">
@@ -493,8 +490,7 @@
       document.getElementById('userName').textContent = currentUser?.full_name || 'Shop Owner';
       document.getElementById('userAvatar').textContent = Helpers.getInitials(currentUser?.full_name);
       document.getElementById('welcomeName').textContent = currentUser?.full_name?.split(' ')[0] || 'Shop Owner';
-      const parcelsAvatar = document.getElementById('parcelsAvatar');
-      if (parcelsAvatar) parcelsAvatar.textContent = Helpers.getInitials(currentUser?.full_name);
+
       setGreeting();
       await loadDashboard();
       loadNotifications();
