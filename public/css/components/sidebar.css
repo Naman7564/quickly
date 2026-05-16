@@ -18,7 +18,7 @@
   top: 0;
   left: 0;
   bottom: 0;
-  z-index: 100;
+  z-index: 300;
   transition: var(--transition-slow);
   overflow-y: auto;
   overflow-x: hidden;
@@ -298,7 +298,7 @@
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 90;
+  z-index: 290;
 }
 
 /* Tablet breakpoint */
@@ -328,6 +328,14 @@
 
 /* Tablet - 768px */
 @media (max-width: 768px) {
+  .sidebar {
+    padding-bottom: var(--nav-height);
+  }
+
+  .sidebar-footer {
+    padding-bottom: calc(var(--nav-height) + 12px);
+  }
+
   .page-content {
     padding: 20px;
   }
