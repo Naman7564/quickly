@@ -47,11 +47,7 @@
             <span class="sidebar-link-icon">&#36;</span>
             Earnings
           </a>
-          <a class="sidebar-link" data-page="history" onclick="showPage('history')">
-            <span class="sidebar-link-icon">&#128336;</span>
-            History
-          </a>
-        </div>
+          </div>
         <div class="sidebar-section">
           <div class="sidebar-section-title">Account</div>
           <a class="sidebar-link" data-page="notifications" onclick="showPage('notifications')">
@@ -221,30 +217,6 @@
           </div>
         </div>
 
-        <!-- History -->
-        <div class="page-section" id="page-history" style="display:none">
-          <div class="page-header">
-            <h1>Delivery History</h1>
-            <p>Your past deliveries</p>
-          </div>
-          <div class="table-container">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Tracking ID</th>
-                  <th>Customer</th>
-                  <th>Route</th>
-                  <th>Earnings</th>
-                  <th>Date</th>
-                </tr>
-              </thead>
-              <tbody id="historyTable">
-                <tr><td colspan="5" class="table-empty"><div class="spinner mx-auto"></div></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
         <!-- Notifications -->
         <div class="page-section" id="page-notifications" style="display:none">
           <div class="page-header d-flex justify-between items-center">
@@ -376,7 +348,7 @@
 
       const titles = {
         overview: 'Dashboard', available: 'Available Parcels', 'my-parcels': 'My Deliveries',
-        earnings: 'Earnings', history: 'History', notifications: 'Notifications', profile: 'Profile'
+        earnings: 'Earnings', notifications: 'Notifications', profile: 'Profile'
       };
       document.getElementById('pageTitle').textContent = titles[page] || 'Dashboard';
 
