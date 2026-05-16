@@ -271,6 +271,14 @@
 }
 .step-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
 .step-card p { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; }
+.step-number {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  background: var(--primary); color: white;
+  border-radius: 50%; font-size: 0.85rem; font-weight: 800;
+  margin: 0 auto 16px;
+  box-shadow: 0 4px 14px rgba(79,70,229,0.3);
+}
 /* Step tag chips inside cards */
 .step-tag {
   display: inline-block; margin-top: 12px;
