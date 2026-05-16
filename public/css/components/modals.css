@@ -11,7 +11,7 @@
   opacity: 0;
   visibility: hidden;
   transition: var(--transition);
-  padding: 20px;
+  padding: clamp(12px, 2vw, 20px);
 }
 
 .modal-overlay.active {
@@ -36,7 +36,7 @@
 }
 
 .modal-header {
-  padding: 20px 24px;
+  padding: clamp(14px, 2vw, 20px) clamp(16px, 2.5vw, 24px);
   border-bottom: 1px solid var(--border-light);
   display: flex;
   align-items: center;
@@ -45,7 +45,7 @@
 }
 
 .modal-header h3 {
-  font-size: 1.125rem;
+  font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.125rem);
   font-weight: 700;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -53,8 +53,8 @@
 }
 
 .modal-close {
-  width: 32px;
-  height: 32px;
+  width: clamp(28px, 3vw, 32px);
+  height: clamp(28px, 3vw, 32px);
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
@@ -64,7 +64,7 @@
   transition: var(--transition);
   cursor: pointer;
   border: none;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 0.9rem + 0.2vw, 1.2rem);
   flex-shrink: 0;
 }
 
@@ -74,12 +74,12 @@
 }
 
 .modal-body {
-  padding: 24px;
+  padding: clamp(16px, 2.5vw, 24px);
   overflow-x: hidden;
 }
 
 .modal-footer {
-  padding: 16px 24px;
+  padding: clamp(12px, 1.5vw, 16px) clamp(16px, 2.5vw, 24px);
   border-top: 1px solid var(--border-light);
   display: flex;
   justify-content: flex-end;
@@ -94,8 +94,8 @@
 /* Toast */
 .toast-container {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: clamp(12px, 1.5vw, 20px);
+  right: clamp(12px, 1.5vw, 20px);
   z-index: 2000;
   display: flex;
   flex-direction: column;
@@ -106,15 +106,15 @@
 .toast {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
+  gap: clamp(8px, 1.2vw, 12px);
+  padding: clamp(8px, 1.2vw, 12px) clamp(12px, 1.5vw, 16px);
   background: var(--bg-card);
   border-radius: var(--radius);
   box-shadow: var(--shadow-lg);
   border-left: 4px solid var(--primary);
   min-width: 280px;
   max-width: 420px;
-  animation: slideInRight 0.3s ease;
+  animation: fadeIn 0.3s ease;
 }
 
 .toast.success { border-left-color: var(--success); }
@@ -123,7 +123,7 @@
 .toast.info { border-left-color: var(--info); }
 
 .toast-icon {
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 0.9rem + 0.2vw, 1.25rem);
   flex-shrink: 0;
 }
 
@@ -134,11 +134,11 @@
 
 .toast-title {
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 0.75rem + 0.2vw, 0.9rem);
 }
 
 .toast-message {
-  font-size: 0.8rem;
+  font-size: clamp(0.7rem, 0.65rem + 0.2vw, 0.8rem);
   color: var(--text-secondary);
   margin-top: 2px;
   word-break: break-word;
@@ -184,10 +184,10 @@
   background: rgba(15, 23, 42, 0.8);
 }
 
-/* Tablet */
+/* Responsive - Tablet - 768px */
 @media (max-width: 768px) {
   .modal-overlay {
-    padding: 16px;
+    padding: 20px;
   }
 
   .modal {
@@ -202,26 +202,26 @@
   }
 
   .modal-header {
-    padding: 16px;
+    padding: 18px 20px;
   }
 
   .modal-header h3 {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .modal-body {
-    padding: 16px;
+    padding: 18px 20px;
   }
 
   .modal-footer {
-    padding: 12px 16px;
+    padding: 14px 20px;
   }
 
   .toast-container {
-    right: 12px;
-    top: 12px;
-    left: 12px;
-    max-width: calc(100vw - 24px);
+    right: 16px;
+    top: 16px;
+    left: 16px;
+    max-width: calc(100vw - 32px);
   }
 
   .toast {
@@ -230,10 +230,63 @@
   }
 }
 
-/* Small mobile */
-@media (max-width: 480px) {
+/* Responsive - Large phone - 640px */
+@media (max-width: 640px) {
   .modal-overlay {
-    padding: 8px;
+    padding: 16px;
+  }
+
+  .modal {
+    max-height: 90vh;
+    border-radius: var(--radius);
+  }
+
+  .modal-header {
+    padding: 16px 18px;
+  }
+
+  .modal-header h3 {
+    font-size: 1.05rem;
+  }
+
+  .modal-body {
+    padding: 16px 18px;
+  }
+
+  .modal-footer {
+    padding: 10px 14px;
+  }
+
+  .toast-container {
+    right: 14px;
+    top: 14px;
+    left: 14px;
+    max-width: calc(100vw - 28px);
+  }
+
+  .toast {
+    padding: 12px 14px;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .toast-icon {
+    font-size: 1.1rem;
+  }
+
+  .toast-title {
+    font-size: 0.88rem;
+  }
+
+  .toast-message {
+    font-size: 0.78rem;
+  }
+}
+
+/* Responsive - Medium phone - 412px (Pixel, Galaxy) */
+@media (max-width: 412px) {
+  .modal-overlay {
+    padding: 12px;
     align-items: flex-end;
   }
 
@@ -254,33 +307,33 @@
   }
 
   .modal-header {
-    padding: 14px 12px;
+    padding: 14px 16px;
   }
 
   .modal-header h3 {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .modal-close {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     font-size: 1rem;
   }
 
   .modal-body {
-    padding: 12px;
+    padding: 14px 16px;
     max-height: 70vh;
   }
 
   .modal-footer {
-    padding: 10px 12px;
+    padding: 12px 16px;
   }
 
   .toast-container {
-    top: 8px;
-    right: 8px;
-    left: 8px;
-    max-width: calc(100vw - 16px);
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: calc(100vw - 20px);
   }
 
   .toast {
@@ -295,10 +348,120 @@
   }
 
   .toast-title {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
 
   .toast-message {
     font-size: 0.75rem;
+  }
+}
+
+/* Responsive - iPhone SE - 375px */
+@media (max-width: 375px) {
+  .modal-overlay {
+    padding: 10px;
+  }
+
+  .modal-header {
+    padding: 12px 14px;
+  }
+
+  .modal-header h3 {
+    font-size: 0.95rem;
+  }
+
+  .modal-close {
+    width: 30px;
+    height: 30px;
+    font-size: 0.95rem;
+  }
+
+  .modal-body {
+    padding: 8px;
+    max-height: 68vh;
+  }
+
+  .modal-footer {
+    padding: 10px;
+  }
+
+  .toast-container {
+    top: 8px;
+    right: 8px;
+    left: 8px;
+    max-width: calc(100vw - 16px);
+  }
+
+  .toast {
+    padding: 10px;
+    gap: 8px;
+    min-width: 0;
+  }
+
+  .toast-icon {
+    font-size: 0.95rem;
+  }
+
+  .toast-title {
+    font-size: 0.82rem;
+  }
+
+  .toast-message {
+    font-size: 0.72rem;
+  }
+}
+
+/* Responsive - Smallest phone - 320px */
+@media (max-width: 320px) {
+  .modal-overlay {
+    padding: 8px;
+  }
+
+  .modal-header {
+    padding: 10px 12px;
+  }
+
+  .modal-header h3 {
+    font-size: 0.88rem;
+  }
+
+  .modal-close {
+    width: 28px;
+    height: 28px;
+    font-size: 0.88rem;
+  }
+
+  .modal-body {
+    padding: 10px 12px;
+    max-height: 65vh;
+  }
+
+  .modal-footer {
+    padding: 10px 12px;
+  }
+
+  .toast-container {
+    top: 6px;
+    right: 6px;
+    left: 6px;
+    max-width: calc(100vw - 12px);
+  }
+
+  .toast {
+    padding: 8px;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .toast-icon {
+    font-size: 0.88rem;
+  }
+
+  .toast-title {
+    font-size: 0.78rem;
+  }
+
+  .toast-message {
+    font-size: 0.6rem;
   }
 }

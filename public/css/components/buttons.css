@@ -3,10 +3,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 10px 20px;
+  gap: clamp(6px, 0.8vw, 8px);
+  padding: clamp(8px, 1vw, 10px) clamp(14px, 2vw, 20px);
   border-radius: var(--radius-sm);
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 0.75rem + 0.25vw, 0.9rem);
   font-weight: 600;
   transition: var(--transition);
   white-space: nowrap;
@@ -72,54 +72,25 @@
 }
 
 .btn-sm {
-  padding: 6px 14px;
-  font-size: 0.8rem;
+  padding: clamp(4px, 0.6vw, 6px) clamp(10px, 1.2vw, 14px);
+  font-size: clamp(0.7rem, 0.65rem + 0.2vw, 0.8rem);
 }
 
 .btn-lg {
-  padding: 14px 28px;
-  font-size: 1rem;
+  padding: clamp(10px, 1.2vw, 14px) clamp(18px, 2.5vw, 28px);
+  font-size: clamp(0.85rem, 0.8rem + 0.25vw, 1rem);
 }
 
 .btn-xl {
-  padding: 16px 36px;
-  font-size: 1.1rem;
+  padding: clamp(12px, 1.5vw, 16px) clamp(24px, 3vw, 36px);
+  font-size: clamp(0.95rem, 0.85rem + 0.3vw, 1.1rem);
   border-radius: var(--radius);
 }
 
-@media (max-width: 480px) {
-  .btn {
-    padding: 8px 14px;
-    font-size: 0.8rem;
-  }
-
-  .btn-sm {
-    padding: 5px 10px;
-    font-size: 0.75rem;
-  }
-
-  .btn-lg {
-    padding: 10px 18px;
-    font-size: 0.85rem;
-    width: 100%;
-  }
-
-  .btn-icon {
-    padding: 8px;
-    min-width: 34px;
-    min-height: 34px;
-  }
-
-  .btn-group {
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-}
-
 .btn-icon {
-  padding: 10px;
-  min-width: 40px;
-  min-height: 40px;
+  padding: clamp(8px, 1vw, 10px);
+  min-width: clamp(36px, 3.5vw, 40px);
+  min-height: clamp(36px, 3.5vw, 40px);
 }
 
 .btn-block {
@@ -147,7 +118,7 @@
 /* Button Group */
 .btn-group {
   display: flex;
-  gap: 8px;
+  gap: clamp(6px, 0.8vw, 8px);
 }
 
 .btn-group .btn {
@@ -160,7 +131,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 10px 20px;
+  padding: clamp(8px, 1vw, 10px) clamp(14px, 2vw, 20px);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--bg-card);
@@ -177,4 +148,128 @@
 .btn-social svg {
   width: 20px;
   height: 20px;
+}
+
+/* Responsive - Tablet - 768px */
+@media (max-width: 768px) {
+  .btn {
+    padding: 10px 18px;
+    font-size: 0.92rem;
+  }
+
+  .btn-sm {
+    padding: 6px 14px;
+    font-size: 0.82rem;
+  }
+
+  .btn-lg {
+    padding: 14px 24px;
+    font-size: 0.98rem;
+  }
+
+  .btn-icon {
+    min-width: 42px;
+    min-height: 42px;
+  }
+}
+
+/* Large phone - 640px */
+@media (max-width: 640px) {
+  .btn {
+    padding: 10px 16px;
+    font-size: 0.88rem;
+  }
+
+  .btn-sm {
+    padding: 6px 12px;
+    font-size: 0.78rem;
+  }
+
+  .btn-lg {
+    padding: 12px 20px;
+    font-size: 0.92rem;
+  }
+
+  .btn-icon {
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+/* Medium phone - 412px (Pixel, Galaxy) */
+@media (max-width: 412px) {
+  .btn {
+    padding: 9px 14px;
+    font-size: 0.85rem;
+  }
+
+  .btn-sm {
+    padding: 5px 11px;
+    font-size: 0.75rem;
+  }
+
+  .btn-lg {
+    padding: 11px 18px;
+    font-size: 0.88rem;
+    width: 100%;
+  }
+
+  .btn-icon {
+    padding: 8px;
+    min-width: 38px;
+    min-height: 38px;
+  }
+
+  .btn-group {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}
+
+/* iPhone SE - 375px */
+@media (max-width: 375px) {
+  .btn {
+    padding: 8px 12px;
+    font-size: 0.82rem;
+  }
+
+  .btn-sm {
+    padding: 5px 10px;
+    font-size: 0.72rem;
+  }
+
+  .btn-lg {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+
+  .btn-icon {
+    padding: 7px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+}
+
+/* Smallest phone - 320px */
+@media (max-width: 320px) {
+  .btn {
+    padding: 7px 10px;
+    font-size: 0.78rem;
+  }
+
+  .btn-sm {
+    padding: 4px 8px;
+    font-size: 0.68rem;
+  }
+
+  .btn-lg {
+    padding: 9px 14px;
+    font-size: 0.82rem;
+  }
+
+  .btn-icon {
+    padding: 6px;
+    min-width: 32px;
+    min-height: 32px;
+  }
 }

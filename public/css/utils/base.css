@@ -57,6 +57,11 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text);
 }
 
+/* Fluid base typography */
+body {
+  font-size: clamp(0.9rem, 0.86rem + 0.2vw, 1rem);
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
@@ -93,7 +98,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 clamp(12px, 2vw, 20px);
 }
 
 .container-lg {
@@ -102,4 +107,23 @@ h1, h2, h3, h4, h5, h6 {
 
 .container-sm {
   max-width: 800px;
+}
+
+/* Responsive container padding */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px;
+  }
+}
+
+@media (max-width: 320px) {
+  .container {
+    padding: 0 8px;
+  }
 }

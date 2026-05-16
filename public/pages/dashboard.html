@@ -914,10 +914,19 @@
   <style>
     .parcel-detail-grid { grid-template-columns: 1fr 1fr; }
     .recent-header { width: 100%; }
-    @media (max-width: 480px) {
-      .parcel-detail-grid { grid-template-columns: 1fr; }
-      .recent-header { flex-wrap: wrap; gap: 8px; }
+    @media (max-width: 768px) {
+      .recent-header h3 { font-size: 1.05rem; }
+    }
+    @media (max-width: 640px) {
+      .recent-header { flex-wrap: wrap; gap: 10px; }
       .recent-header h3 { font-size: 1rem; }
+    }
+    @media (max-width: 412px) {
+      .parcel-detail-grid { grid-template-columns: 1fr; }
+      .recent-header h3 { font-size: 0.95rem; }
+    }
+    @media (max-width: 320px) {
+      .recent-header h3 { font-size: 0.88rem; }
     }
   </style>
 </body>
