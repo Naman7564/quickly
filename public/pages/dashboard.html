@@ -132,22 +132,11 @@
             <h3>Recent Deliveries</h3>
             <a class="btn btn-outline btn-sm" onclick="showPage('parcels')">View All</a>
           </div>
-          <div class="table-container">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Tracking ID</th>
-                  <th>Customer</th>
-                  <th>Status</th>
-                  <th>Charge</th>
-                  <th>Date</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="recentParcels">
-                <tr><td colspan="6" class="table-empty"><div class="table-empty-icon">&#9744;</div><p>No deliveries yet. Create your first delivery!</p></td></tr>
-              </tbody>
-            </table>
+          <div class="delivery-list" id="recentParcels">
+            <div class="delivery-empty">
+              <div class="delivery-empty-icon">&#9744;</div>
+              <p>No deliveries yet. Create your first delivery!</p>
+            </div>
           </div>
         </div>
 
@@ -511,19 +500,23 @@
         const res = await api.get('/parcels', { limit: 5 });
         if (res.success && res.data.length > 0) {
           document.getElementById('recentParcels').innerHTML = res.data.map(p => `
-            <tr>
-              <td><span class="font-mono text-sm pointer" onclick="viewParcel(${p.id})">${p.tracking_id}</span></td>
-              <td>${p.customer_name}</td>
-              <td>${Helpers.getStatusBadge(p.status)}</td>
-              <td>${Helpers.formatCurrency(p.delivery_charge)}</td>
-              <td class="text-muted text-sm">${Helpers.formatDate(p.created_at)}</td>
-              <td>
-                <div class="table-actions">
-                  <button class="btn btn-ghost btn-icon" onclick="viewParcel(${p.id})" title="View">&#128065;</button>
-                  ${p.status === 'pending' ? `<button class="btn btn-ghost btn-icon" onclick="openAssignModal(${p.id})" title="Assign Driver">&#128666;</button>` : ''}
+            <div class="delivery-card" onclick="viewParcel(${p.id})">
+              <div class="delivery-card-row delivery-card-top">
+                <span class="delivery-tracking">${p.tracking_id}</span>
+                ${Helpers.getStatusBadge(p.status)}
+              </div>
+              <div class="delivery-card-row delivery-card-mid">
+                <span class="delivery-customer">${p.customer_name}</span>
+                <span class="delivery-charge">${Helpers.formatCurrency(p.delivery_charge)}</span>
+              </div>
+              <div class="delivery-card-row delivery-card-bottom">
+                <span class="delivery-date">${Helpers.formatDate(p.created_at)}</span>
+                <div class="delivery-actions">
+                  <button class="btn btn-ghost btn-icon delivery-action-btn" onclick="event.stopPropagation();viewParcel(${p.id})" title="View">&#128065;</button>
+                  ${p.status === 'pending' ? `<button class="btn btn-ghost btn-icon delivery-action-btn" onclick="event.stopPropagation();openAssignModal(${p.id})" title="Assign Driver">&#128666;</button>` : ''}
                 </div>
-              </td>
-            </tr>
+              </div>
+            </div>
           `).join('');
         }
       } catch (err) { console.error(err); }
