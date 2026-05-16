@@ -79,6 +79,38 @@
   justify-content: center;
   padding: 40px;
   background: var(--bg);
+  position: relative;
+}
+
+.back-home {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: var(--transition);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  z-index: 10;
+}
+
+.back-home:hover {
+  color: var(--primary);
+  background: var(--bg-hover);
+}
+
+.back-home svg {
+  transition: transform 0.2s ease;
+}
+
+.back-home:hover svg {
+  transform: translateX(-4px);
 }
 
 .auth-form-wrapper {
@@ -206,6 +238,14 @@
 @media (max-width: 480px) {
   .auth-right {
     padding: 24px;
+    padding-top: 64px;
+  }
+
+  .back-home {
+    top: 16px;
+    left: 16px;
+    font-size: 0.85rem;
+    padding: 6px 10px;
   }
 
   .role-selector {
