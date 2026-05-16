@@ -355,7 +355,6 @@
       if (page === 'available') loadAvailableParcels();
       if (page === 'my-parcels') loadMyParcels();
       if (page === 'earnings') loadEarnings();
-      if (page === 'history') loadHistory();
       if (page === 'notifications') loadNotifications();
       if (page === 'profile') loadProfile();
 
@@ -566,26 +565,6 @@
           document.getElementById('earnWeek').textContent = Helpers.formatCurrency(res.data.weekly_earnings);
           document.getElementById('earnMonth').textContent = Helpers.formatCurrency(res.data.monthly_earnings);
           document.getElementById('earnTotal').textContent = Helpers.formatCurrency(res.data.total_earnings);
-        }
-      } catch (err) { console.error(err); }
-    }
-
-    // History
-    async function loadHistory() {
-      try {
-        const res = await api.get('/parcels', { status: 'delivered', limit: 50 });
-        if (res.success) {
-          document.getElementById('historyTable').innerHTML = res.data.length === 0
-            ? '<tr><td colspan="5" class="table-empty"><p>No delivery history</p></td></tr>'
-            : res.data.map(p => `
-              <tr>
-                <td class="font-mono text-sm">${p.tracking_id}</td>
-                <td>${p.customer_name}</td>
-                <td class="text-sm">${Helpers.truncate(p.pickup_address, 20)} &rarr; ${Helpers.truncate(p.delivery_address, 20)}</td>
-                <td class="font-semibold">${Helpers.formatCurrency(p.delivery_charge * 0.85)}</td>
-                <td class="text-sm text-muted">${Helpers.formatDate(p.delivered_at || p.created_at)}</td>
-              </tr>
-            `).join('');
         }
       } catch (err) { console.error(err); }
     }
