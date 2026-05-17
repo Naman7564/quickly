@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - Quickly</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/utils/variables.css">
   <link rel="stylesheet" href="/css/utils/base.css">
   <link rel="stylesheet" href="/css/utils/utilities.css">
@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="/css/components/modals.css">
   <link rel="stylesheet" href="/css/components/sidebar.css">
   <link rel="stylesheet" href="/css/pages/dashboard.css">
+  <link rel="stylesheet" href="/css/components/lang-switcher.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%234F46E5'/><text x='50%25' y='55%25' text-anchor='middle' dominant-baseline='middle' font-size='18' font-weight='bold' fill='white'>Q</text></svg>">
   <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
 </head>
@@ -28,56 +29,56 @@
       </div>
       <nav class="sidebar-nav">
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Main</div>
+          <div class="sidebar-section-title" data-i18n="common.main">Main</div>
           <a class="sidebar-link active" data-page="overview" onclick="showPage('overview')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             </span>
-            Dashboard
+            <span data-i18n="nav.dashboard">Dashboard</span>
           </a>
           <a class="sidebar-link" data-page="parcels" onclick="showPage('parcels')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
             </span>
-            My Parcels
+            <span data-i18n="nav.myParcels">My Parcels</span>
             <span class="sidebar-link-badge" id="activeParcelCount">0</span>
           </a>
           <a class="sidebar-link" data-page="create" onclick="showPage('create')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
             </span>
-            New Delivery
+            <span data-i18n="nav.newDelivery">New Delivery</span>
           </a>
         </div>
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Analytics</div>
+          <div class="sidebar-section-title" data-i18n="nav.analytics">Analytics</div>
           <a class="sidebar-link" data-page="analytics" onclick="showPage('analytics')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
             </span>
-            Analytics
+            <span data-i18n="nav.analytics">Analytics</span>
           </a>
           <a class="sidebar-link" data-page="payments" onclick="showPage('payments')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
             </span>
-            Payments
+            <span data-i18n="nav.payments">Payments</span>
           </a>
         </div>
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Account</div>
+          <div class="sidebar-section-title" data-i18n="common.account">Account</div>
           <a class="sidebar-link" data-page="notifications" onclick="showPage('notifications')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
             </span>
-            Notifications
+            <span data-i18n="nav.notifications">Notifications</span>
             <span class="sidebar-link-badge" id="notifBadge" style="display:none">0</span>
           </a>
           <a class="sidebar-link" data-page="settings" onclick="showPage('settings')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
             </span>
-            Settings
+            <span data-i18n="nav.settings">Settings</span>
           </a>
         </div>
       </nav>
@@ -86,7 +87,7 @@
           <div class="sidebar-user-avatar" id="userAvatar">S</div>
           <div class="sidebar-user-info">
             <div class="sidebar-user-name" id="userName">Shop Owner</div>
-            <div class="sidebar-user-role">Shop Owner</div>
+            <div class="sidebar-user-role" data-i18n="dashboard.shopOwner">Shop Owner</div>
           </div>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         </div>
@@ -102,9 +103,14 @@
           <button class="hamburger" onclick="toggleSidebar()">
             <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           </button>
-          <h2 class="topbar-title" id="pageTitle">Dashboard</h2>
+          <h2 class="topbar-title" id="pageTitle" data-i18n="nav.dashboard">Dashboard</h2>
         </div>
         <div class="topbar-right">
+          <div class="lang-switcher" id="langSwitcher">
+            <button class="lang-option active" data-lang="en">EN</button>
+            <button class="lang-option" data-lang="hi">हिं</button>
+            <div class="lang-slider"></div>
+          </div>
           <button class="topbar-btn" onclick="toggleTheme()" title="Toggle theme">
             <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
           </button>
@@ -119,40 +125,40 @@
         <!-- Overview Page -->
         <div class="page-section" id="page-overview">
           <div class="page-header">
-            <h1>Welcome back, <span id="welcomeName">Shop Owner</span>!</h1>
-            <p>Here's what's happening with your deliveries today.</p>
+            <h1><span data-i18n="dashboard.welcomeBack">Welcome back</span>, <span id="welcomeName">Shop Owner</span>!</h1>
+            <p data-i18n="dashboard.todaySubtitle">Here's what's happening with your deliveries today.</p>
           </div>
           <div class="stats-grid" id="statsGrid">
             <div class="stat-card animate-fade-in">
               <div class="stat-card-icon primary">&#9744;</div>
               <div class="stat-card-value" id="statTotal">0</div>
-              <div class="stat-card-label">Total Parcels</div>
+              <div class="stat-card-label" data-i18n="dashboard.totalParcels">Total Parcels</div>
             </div>
             <div class="stat-card animate-fade-in delay-1">
               <div class="stat-card-icon secondary">&#9889;</div>
               <div class="stat-card-value" id="statActive">0</div>
-              <div class="stat-card-label">Active Deliveries</div>
+              <div class="stat-card-label" data-i18n="dashboard.activeDeliveries">Active Deliveries</div>
             </div>
             <div class="stat-card animate-fade-in delay-2">
               <div class="stat-card-icon accent">&#10003;</div>
               <div class="stat-card-value" id="statDelivered">0</div>
-              <div class="stat-card-label">Delivered</div>
+              <div class="stat-card-label" data-i18n="dashboard.delivered">Delivered</div>
             </div>
             <div class="stat-card animate-fade-in delay-3">
               <div class="stat-card-icon danger">&#36;</div>
               <div class="stat-card-value" id="statSpent">&#8377;0</div>
-              <div class="stat-card-label">Total Spent</div>
+              <div class="stat-card-label" data-i18n="dashboard.totalSpent">Total Spent</div>
             </div>
           </div>
 
           <div class="recent-header d-flex justify-between items-center mt-8 mb-4">
-            <h3>Recent Deliveries</h3>
-            <a class="btn btn-outline btn-sm" onclick="showPage('parcels')">View All</a>
+            <h3 data-i18n="dashboard.recentDeliveries">Recent Deliveries</h3>
+            <a class="btn btn-outline btn-sm" onclick="showPage('parcels')" data-i18n="common.viewAll">View All</a>
           </div>
           <div class="delivery-list" id="recentParcels">
             <div class="delivery-empty">
               <div class="delivery-empty-icon">&#9744;</div>
-              <p>No deliveries yet. Create your first delivery!</p>
+              <p data-i18n="dashboard.noDeliveries">No deliveries yet. Create your first delivery!</p>
             </div>
           </div>
         </div>
@@ -162,14 +168,14 @@
           <!-- Minimal Header -->
           <div class="parcels-header-minimal">
             <div class="parcels-header-top">
-              <h2 class="parcels-greeting-text" id="greetingText">Good Morning <span class="greeting-wave">&#128075;</span></h2>
-              <p class="parcels-greeting-sub">Track your shipments easily</p>
+              <h2 class="parcels-greeting-text" id="greetingText"><span data-i18n="dashboard.greetingMorning">Good Morning</span> <span class="greeting-wave">&#128075;</span></h2>
+              <p class="parcels-greeting-sub" data-i18n="dashboard.trackSubtext">Track your shipments easily</p>
             </div>
             <!-- Search Bar -->
             <div class="parcels-search-wrap">
               <div class="parcels-search">
                 <svg class="parcels-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-                <input type="text" class="parcels-search-input" id="searchParcels" oninput="debouncedSearch()" placeholder="Search tracking number...">
+                <input type="text" class="parcels-search-input" id="searchParcels" oninput="debouncedSearch()" placeholder="Search tracking number..." data-i18n-placeholder="dashboard.searchPlaceholder">
                 <div class="parcels-search-divider"></div>
                 <button class="parcels-search-filter" onclick="toggleFilterDropdown()">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 21v-7m0-4V3m8 18v-9m0-4V3m8 18v-5m0-4V3M1 14h6M9 8h6M17 16h6"/></svg>
@@ -182,25 +188,25 @@
           <div class="parcels-filters" id="parcelsFilters">
             <div class="parcels-filters-scroll">
               <button class="filter-chip active" data-status="" onclick="filterByStatus(this, '')">
-                <span class="filter-chip-icon">&#9679;</span> All
+                <span class="filter-chip-icon">&#9679;</span> <span data-i18n="common.all">All</span>
               </button>
               <button class="filter-chip" data-status="pending" onclick="filterByStatus(this, 'pending')">
-                <span class="filter-chip-dot pending"></span> Pending
+                <span class="filter-chip-dot pending"></span> <span data-i18n="status.pending">Pending</span>
               </button>
               <button class="filter-chip" data-status="accepted" onclick="filterByStatus(this, 'accepted')">
-                <span class="filter-chip-dot accepted"></span> Accepted
+                <span class="filter-chip-dot accepted"></span> <span data-i18n="status.accepted">Accepted</span>
               </button>
               <button class="filter-chip" data-status="picked_up" onclick="filterByStatus(this, 'picked_up')">
-                <span class="filter-chip-dot picked_up"></span> Picked Up
+                <span class="filter-chip-dot picked_up"></span> <span data-i18n="status.picked_up">Picked Up</span>
               </button>
               <button class="filter-chip" data-status="in_transit" onclick="filterByStatus(this, 'in_transit')">
-                <span class="filter-chip-dot in_transit"></span> In Transit
+                <span class="filter-chip-dot in_transit"></span> <span data-i18n="status.in_transit">In Transit</span>
               </button>
               <button class="filter-chip" data-status="delivered" onclick="filterByStatus(this, 'delivered')">
-                <span class="filter-chip-dot delivered"></span> Delivered
+                <span class="filter-chip-dot delivered"></span> <span data-i18n="status.delivered">Delivered</span>
               </button>
               <button class="filter-chip" data-status="cancelled" onclick="filterByStatus(this, 'cancelled')">
-                <span class="filter-chip-dot cancelled"></span> Cancelled
+                <span class="filter-chip-dot cancelled"></span> <span data-i18n="status.cancelled">Cancelled</span>
               </button>
             </div>
           </div>
@@ -240,60 +246,60 @@
         <!-- Create Parcel Page -->
         <div class="page-section" id="page-create" style="display:none">
           <div class="page-header">
-            <h1>Create New Delivery</h1>
-            <p>Fill in the details to create a new parcel delivery request</p>
+            <h1 data-i18n="dashboard.createNewDelivery">Create New Delivery</h1>
+            <p data-i18n="dashboard.fillDetails">Fill in the details to create a new parcel delivery request</p>
           </div>
           <div class="card" style="max-width: 720px; width: 100%;">
             <div class="card-body">
               <form id="createParcelForm">
                 <div class="form-row">
                   <div class="form-group">
-                    <label class="form-label">Pickup Address *</label>
-                    <input type="text" class="form-input" id="pickup_address" placeholder="Pickup location" required>
+                    <label class="form-label" data-i18n="dashboard.pickupAddress">Pickup Address *</label>
+                    <input type="text" class="form-input" id="pickup_address" placeholder="Pickup location" required data-i18n-placeholder="dashboard.pickupPlaceholder">
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Delivery Address *</label>
-                    <input type="text" class="form-input" id="delivery_address" placeholder="Delivery location" required>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label class="form-label">Customer Name *</label>
-                    <input type="text" class="form-input" id="customer_name" placeholder="Customer name" required>
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label">Customer Phone *</label>
-                    <input type="tel" class="form-input" id="customer_phone" placeholder="Phone number" required>
+                    <label class="form-label" data-i18n="dashboard.deliveryAddress">Delivery Address *</label>
+                    <input type="text" class="form-input" id="delivery_address" placeholder="Delivery location" required data-i18n-placeholder="dashboard.deliveryPlaceholder">
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group">
-                    <label class="form-label">Parcel Type</label>
+                    <label class="form-label" data-i18n="dashboard.customerName">Customer Name *</label>
+                    <input type="text" class="form-input" id="customer_name" placeholder="Customer name" required data-i18n-placeholder="dashboard.customerNamePlaceholder">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" data-i18n="dashboard.customerPhone">Customer Phone *</label>
+                    <input type="tel" class="form-input" id="customer_phone" placeholder="Phone number" required data-i18n-placeholder="dashboard.phonePlaceholder">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" data-i18n="dashboard.parcelType">Parcel Type</label>
                     <select class="form-select" id="parcel_type">
-                      <option value="general">General</option>
-                      <option value="food">Food</option>
-                      <option value="documents">Documents</option>
-                      <option value="electronics">Electronics</option>
-                      <option value="fragile">Fragile</option>
-                      <option value="medicine">Medicine</option>
+                      <option value="general" data-i18n="dashboard.general">General</option>
+                      <option value="food" data-i18n="dashboard.food">Food</option>
+                      <option value="documents" data-i18n="dashboard.documents">Documents</option>
+                      <option value="electronics" data-i18n="dashboard.electronics">Electronics</option>
+                      <option value="fragile" data-i18n="dashboard.fragile">Fragile</option>
+                      <option value="medicine" data-i18n="dashboard.medicine">Medicine</option>
                     </select>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Weight (kg)</label>
+                    <label class="form-label" data-i18n="dashboard.weight">Weight (kg)</label>
                     <input type="number" class="form-input" id="weight" placeholder="0" min="0" step="0.1">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Delivery Charge (INR) *</label>
-                  <input type="number" class="form-input" id="delivery_charge" placeholder="Enter amount" required min="1">
+                  <label class="form-label" data-i18n="dashboard.deliveryCharge">Delivery Charge (INR) *</label>
+                  <input type="number" class="form-input" id="delivery_charge" placeholder="Enter amount" required min="1" data-i18n-placeholder="dashboard.chargePlaceholder">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Description / Notes</label>
-                  <textarea class="form-textarea" id="description" placeholder="Any special instructions..." rows="3"></textarea>
+                  <label class="form-label" data-i18n="dashboard.description">Description / Notes</label>
+                  <textarea class="form-textarea" id="description" placeholder="Any special instructions..." rows="3" data-i18n-placeholder="dashboard.descriptionPlaceholder"></textarea>
                 </div>
                 <button type="submit" id="createParcelBtn" class="btn btn-primary btn-lg">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-                  Create Delivery Request
+                  <span data-i18n="dashboard.createDeliveryRequest">Create Delivery Request</span>
                 </button>
               </form>
             </div>
@@ -303,33 +309,33 @@
         <!-- Analytics Page -->
         <div class="page-section" id="page-analytics" style="display:none">
           <div class="page-header">
-            <h1>Analytics</h1>
-            <p>Track your delivery performance and insights</p>
+            <h1 data-i18n="nav.analytics">Analytics</h1>
+            <p data-i18n="dashboard.analyticsSubtitle">Track your delivery performance and insights</p>
           </div>
           <div class="stats-grid mb-6">
             <div class="stat-card">
               <div class="stat-card-icon primary">&#9744;</div>
               <div class="stat-card-value" id="anTotal">0</div>
-              <div class="stat-card-label">Total Parcels</div>
+              <div class="stat-card-label" data-i18n="dashboard.totalParcels">Total Parcels</div>
             </div>
             <div class="stat-card">
               <div class="stat-card-icon accent">&#9636;</div>
               <div class="stat-card-value" id="anMonthly">0</div>
-              <div class="stat-card-label">This Month</div>
+              <div class="stat-card-label" data-i18n="dashboard.thisMonth">This Month</div>
             </div>
             <div class="stat-card">
               <div class="stat-card-icon danger">&#36;</div>
               <div class="stat-card-value" id="anSpent">&#8377;0</div>
-              <div class="stat-card-label">Total Spent</div>
+              <div class="stat-card-label" data-i18n="dashboard.totalSpent">Total Spent</div>
             </div>
             <div class="stat-card">
               <div class="stat-card-icon secondary">&#36;</div>
               <div class="stat-card-value" id="anMonthlySpent">&#8377;0</div>
-              <div class="stat-card-label">Monthly Spent</div>
+              <div class="stat-card-label" data-i18n="dashboard.monthlySpent">Monthly Spent</div>
             </div>
           </div>
           <div class="card">
-            <div class="card-header"><h3>Delivery Status Breakdown</h3></div>
+            <div class="card-header"><h3 data-i18n="dashboard.statusBreakdown">Delivery Status Breakdown</h3></div>
             <div class="card-body">
               <div id="statusChart" class="chart-bars"></div>
             </div>
@@ -339,17 +345,17 @@
         <!-- Payments Page -->
         <div class="page-section" id="page-payments" style="display:none">
           <div class="page-header">
-            <h1>Payments</h1>
-            <p>Track your delivery charges and payment history</p>
+            <h1 data-i18n="nav.payments">Payments</h1>
+            <p data-i18n="dashboard.paymentsSubtitle">Track your delivery charges and payment history</p>
           </div>
           <div class="table-container">
             <table class="table">
               <thead>
                 <tr>
-                  <th>Tracking ID</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Date</th>
+                  <th data-i18n="common.trackingId">Tracking ID</th>
+                  <th data-i18n="dashboard.amount">Amount</th>
+                  <th data-i18n="common.status">Status</th>
+                  <th data-i18n="common.date">Date</th>
                 </tr>
               </thead>
               <tbody id="paymentTable">
@@ -363,10 +369,10 @@
         <div class="page-section" id="page-notifications" style="display:none">
           <div class="page-header d-flex justify-between items-center">
             <div>
-              <h1>Notifications</h1>
-              <p>Stay updated with your deliveries</p>
+              <h1 data-i18n="nav.notifications">Notifications</h1>
+              <p data-i18n="dashboard.stayUpdated">Stay updated with your deliveries</p>
             </div>
-            <button class="btn btn-outline btn-sm" onclick="markAllRead()">Mark all read</button>
+            <button class="btn btn-outline btn-sm" onclick="markAllRead()" data-i18n="common.markAllRead">Mark all read</button>
           </div>
           <div id="notificationList" class="notification-list">
             <div class="text-center p-6"><div class="spinner mx-auto"></div></div>
@@ -376,67 +382,67 @@
         <!-- Settings Page -->
         <div class="page-section" id="page-settings" style="display:none">
           <div class="page-header">
-            <h1>Settings</h1>
-            <p>Manage your account and preferences</p>
+            <h1 data-i18n="nav.settings">Settings</h1>
+            <p data-i18n="dashboard.manageAccount">Manage your account and preferences</p>
           </div>
           <div class="d-grid gap-5" style="max-width: 640px; width: 100%;">
             <div class="card">
-              <div class="card-header"><h3>Profile</h3></div>
+              <div class="card-header"><h3 data-i18n="dashboard.profile">Profile</h3></div>
               <div class="card-body">
                 <form id="profileForm">
                   <div class="form-row">
                     <div class="form-group">
-                      <label class="form-label">Full Name</label>
+                      <label class="form-label" data-i18n="dashboard.fullName">Full Name</label>
                       <input type="text" class="form-input" id="settName">
                     </div>
                     <div class="form-group">
-                      <label class="form-label">Phone</label>
+                      <label class="form-label" data-i18n="dashboard.phone">Phone</label>
                       <input type="tel" class="form-input" id="settPhone">
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-primary">Save Changes</button>
+                  <button type="submit" class="btn btn-primary" data-i18n="common.saveChanges">Save Changes</button>
                 </form>
               </div>
             </div>
             <div class="card">
-              <div class="card-header"><h3>Shop Details</h3></div>
+              <div class="card-header"><h3 data-i18n="dashboard.shopDetails">Shop Details</h3></div>
               <div class="card-body">
                 <form id="shopForm">
                   <div class="form-group">
-                    <label class="form-label">Shop Name</label>
+                    <label class="form-label" data-i18n="dashboard.shopName">Shop Name</label>
                     <input type="text" class="form-input" id="settShopName">
                   </div>
                   <div class="form-group">
-                    <label class="form-label">Shop Address</label>
+                    <label class="form-label" data-i18n="dashboard.shopAddress">Shop Address</label>
                     <input type="text" class="form-input" id="settShopAddress">
                   </div>
                   <div class="form-row">
                     <div class="form-group">
-                      <label class="form-label">Shop Type</label>
+                      <label class="form-label" data-i18n="dashboard.shopType">Shop Type</label>
                       <input type="text" class="form-input" id="settShopType">
                     </div>
                     <div class="form-group">
-                      <label class="form-label">City</label>
+                      <label class="form-label" data-i18n="dashboard.city">City</label>
                       <input type="text" class="form-input" id="settCity">
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-primary">Update Shop</button>
+                  <button type="submit" class="btn btn-primary" data-i18n="dashboard.updateShop">Update Shop</button>
                 </form>
               </div>
             </div>
             <div class="card">
-              <div class="card-header"><h3>Change Password</h3></div>
+              <div class="card-header"><h3 data-i18n="dashboard.changePassword">Change Password</h3></div>
               <div class="card-body">
                 <form id="passwordForm">
                   <div class="form-group">
-                    <label class="form-label">Current Password</label>
+                    <label class="form-label" data-i18n="dashboard.currentPassword">Current Password</label>
                     <input type="password" class="form-input" id="settCurrentPw">
                   </div>
                   <div class="form-group">
-                    <label class="form-label">New Password</label>
+                    <label class="form-label" data-i18n="dashboard.newPassword">New Password</label>
                     <input type="password" class="form-input" id="settNewPw" minlength="6">
                   </div>
-                  <button type="submit" class="btn btn-primary">Update Password</button>
+                  <button type="submit" class="btn btn-primary" data-i18n="common.updatePassword">Update Password</button>
                 </form>
               </div>
             </div>
@@ -450,19 +456,19 @@
   <nav class="bottom-nav" id="bottomNav">
     <button class="bottom-nav-item active" data-page="overview" onclick="showPage('overview')">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      <span>Home</span>
+      <span data-i18n="nav.home">Home</span>
     </button>
     <button class="bottom-nav-item" data-page="parcels" onclick="showPage('parcels')">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-      <span>Parcels</span>
+      <span data-i18n="nav.parcels">Parcels</span>
     </button>
     <button class="bottom-nav-item" data-page="analytics" onclick="showPage('analytics')">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
-      <span>Analytics</span>
+      <span data-i18n="nav.analytics">Analytics</span>
     </button>
     <button class="bottom-nav-item" data-page="settings" onclick="showPage('settings')">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      <span>Settings</span>
+      <span data-i18n="nav.settings">Settings</span>
     </button>
   </nav>
 
@@ -470,7 +476,7 @@
   <div class="modal-overlay" id="parcelModal">
     <div class="modal modal-lg">
       <div class="modal-header">
-        <h3>Parcel Details</h3>
+        <h3 data-i18n="dashboard.parcelDetails">Parcel Details</h3>
         <button class="modal-close" onclick="closeModal('parcelModal')">&times;</button>
       </div>
       <div class="modal-body" id="parcelModalBody"></div>
@@ -482,20 +488,20 @@
   <div class="modal-overlay" id="paymentModal">
     <div class="modal modal-sm payment-modal">
       <div class="modal-header">
-        <h3>Confirm Payment</h3>
+        <h3 data-i18n="dashboard.confirmPayment">Confirm Payment</h3>
         <button class="modal-close" onclick="closePaymentModal()">&times;</button>
       </div>
       <div class="modal-body">
         <!-- Payment Summary -->
         <div class="payment-summary">
-          <div class="payment-amount-label">Amount to Pay</div>
+          <div class="payment-amount-label" data-i18n="dashboard.amountToPay">Amount to Pay</div>
           <div class="payment-amount" id="paymentAmount">₹0</div>
         </div>
 
         
         <!-- UPI ID Display -->
         <div class="payment-upi-row">
-          <span class="payment-upi-label">UPI ID:</span>
+          <span class="payment-upi-label" data-i18n="dashboard.upiId">UPI ID:</span>
           <span class="payment-upi-id">8719939020@ptaxis</span>
           <button class="btn btn-ghost btn-sm" onclick="Helpers.copyToClipboard('8719939020@ptaxis')" title="Copy UPI ID">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -507,27 +513,28 @@
           <div class="payment-qr-wrapper">
             <div id="paymentQrCode"></div>
           </div>
-          <p class="payment-qr-hint">Scan this QR code with any UPI app</p>
+          <p class="payment-qr-hint" data-i18n="dashboard.scanQr">Scan this QR code with any UPI app</p>
         </div>
 
         <!-- Action Buttons -->
         <div class="payment-actions">
           <button class="btn btn-primary btn-block payment-pay-btn" id="paymentPayBtn" onclick="processUpiPayment()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 7l-5-5-5 5"/></svg>
-            Pay with UPI App
+            <span data-i18n="dashboard.payWithUpi">Pay with UPI App</span>
           </button>
-          <button class="btn btn-outline btn-block" onclick="closePaymentModal()">Cancel</button>
+          <button class="btn btn-outline btn-block" onclick="closePaymentModal()" data-i18n="common.cancel">Cancel</button>
         </div>
 
         <!-- Processing State (hidden by default) -->
         <div class="payment-processing" id="paymentProcessing" style="display:none">
           <div class="spinner mx-auto"></div>
-          <p class="text-center text-muted mt-3">Processing payment...</p>
+          <p class="text-center text-muted mt-3" data-i18n="dashboard.processing">Processing payment...</p>
         </div>
       </div>
     </div>
   </div>
 
+  <script src="/js/utils/i18n.js"></script>
   <script src="/js/utils/api.js"></script>
   <script src="/js/utils/auth.js"></script>
   <script src="/js/utils/toast.js"></script>
@@ -571,7 +578,7 @@
       payBtn.disabled = false;
       payBtn.innerHTML = `
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 7l-5-5-5 5"/></svg>
-        Pay with UPI App
+        ${i18n.t('dashboard.payWithUpi')}
       `;
       payBtn.onclick = processUpiPayment;
 
@@ -591,7 +598,7 @@
 
     async function processUpiPayment() {
       if (!pendingFormData) {
-        toast.error('Session expired', 'Please fill the form again');
+        toast.error(i18n.t('dashboard.sessionExpired'), i18n.t('dashboard.fillFormAgain'));
         closePaymentModal();
         return;
       }
@@ -605,7 +612,7 @@
       document.getElementById('paymentProcessing').style.display = 'block';
 
       if (isMobileDevice()) {
-        toast.info('Redirecting to payment app...', 'Complete payment in your UPI app');
+        toast.info(i18n.t('dashboard.redirecting'), i18n.t('dashboard.completeInUpi'));
         localStorage.setItem('quickly_pending_parcel', JSON.stringify(pendingFormData));
 
         try { window.location.href = upiLink; } catch (e) { /* ignore */ }
@@ -628,9 +635,9 @@
       `;
       payBtn.onclick = createParcelAfterPayment;
       if (!isMobileDevice()) {
-        toast.info('Scan the QR code to pay', 'Then click below to confirm');
+        toast.info(i18n.t('dashboard.scanQrToPay'), i18n.t('dashboard.thenConfirm'));
       } else {
-        toast.warning('UPI app not found', 'Scan the QR code to pay, then confirm below');
+        toast.warning(i18n.t('dashboard.upiNotFound'), i18n.t('dashboard.scanQrThenConfirm'));
       }
     }
 
@@ -646,13 +653,13 @@
       try {
         const res = await api.post('/parcels', formData);
         if (res.success) {
-          toast.success('Delivery created!', `Tracking ID: ${res.data.tracking_id}`);
+          toast.success(i18n.t('dashboard.deliveryCreated'), `${i18n.t('common.trackingId')}: ${res.data.tracking_id}`);
           document.getElementById('createParcelForm').reset();
           showPage('parcels');
           loadDashboard();
         }
       } catch (err) {
-        toast.error('Failed to create delivery', err.message);
+        toast.error(i18n.t('dashboard.failedCreateDelivery'), err.message);
       } finally {
         btn.classList.remove('loading');
         btn.disabled = false;
@@ -677,12 +684,12 @@
         try {
           const res = await api.post('/parcels', JSON.parse(pendingParcel));
           if (res.success) {
-            toast.success('Delivery created!', `Tracking ID: ${res.data.tracking_id}`);
+            toast.success(i18n.t('dashboard.deliveryCreated'), `${i18n.t('common.trackingId')}: ${res.data.tracking_id}`);
             showPage('parcels');
             loadDashboard();
           }
         } catch (err) {
-          toast.error('Failed to create delivery', err.message);
+          toast.error(i18n.t('dashboard.failedCreateDelivery'), err.message);
         }
       }
     });
@@ -699,10 +706,15 @@
       document.querySelector(`.bottom-nav-item[data-page="${page}"]`)?.classList.add('active');
 
       const titles = {
-        overview: 'Dashboard', parcels: 'My Parcels', create: 'New Delivery',
-        analytics: 'Analytics', payments: 'Payments', notifications: 'Notifications', settings: 'Settings'
+        overview: i18n.t('nav.dashboard'),
+        parcels: i18n.t('nav.myParcels'),
+        create: i18n.t('nav.newDelivery'),
+        analytics: i18n.t('nav.analytics'),
+        payments: i18n.t('nav.payments'),
+        notifications: i18n.t('nav.notifications'),
+        settings: i18n.t('nav.settings')
       };
-      document.getElementById('pageTitle').textContent = titles[page] || 'Dashboard';
+      document.getElementById('pageTitle').textContent = titles[page] || i18n.t('nav.dashboard');
       currentPage = page;
 
       // Load data
@@ -789,7 +801,7 @@
     }
 
     function getProgressSteps(status) {
-      const steps = ['Ordered', 'Picked', 'Transit', 'Delivered'];
+      const steps = [i18n.t('dashboard.ordered'), i18n.t('dashboard.picked'), i18n.t('dashboard.transit'), i18n.t('dashboard.deliveredProgress')];
       const statusIndex = { pending: 0, accepted: 1, picked_up: 2, in_transit: 3, delivered: 4, cancelled: -1 };
       const idx = statusIndex[status] ?? 0;
 
@@ -812,9 +824,9 @@
     function getParcelCardActions(p) {
       let actions = '';
       if (['pending', 'accepted'].includes(p.status)) {
-        actions += `<button class="parcel-action-btn parcel-action-cancel" onclick="event.stopPropagation();cancelParcel(${p.id})" title="Cancel">
+        actions += `<button class="parcel-action-btn parcel-action-cancel" onclick="event.stopPropagation();cancelParcel(${p.id})" title="${i18n.t('common.cancel')}">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          Cancel
+          ${i18n.t('common.cancel')}
         </button>`;
       }
       return actions;
@@ -830,8 +842,8 @@
             container.innerHTML = `
               <div class="parcels-empty">
                 <div class="parcels-empty-icon">&#128230;</div>
-                <h3>No parcels found</h3>
-                <p>Create your first delivery to get started</p>
+                <h3>${i18n.t('dashboard.noParcelsFound')}</h3>
+                <p>${i18n.t('dashboard.createFirstDelivery')}</p>
               </div>`;
           } else {
             container.innerHTML = res.data.map((p, i) => `
@@ -851,14 +863,14 @@
                 <!-- Route -->
                 <div class="parcel-card-route">
                   <div class="route-point">
-                    <div class="route-label">From</div>
+                    <div class="route-label">${i18n.t('dashboard.from')}</div>
                     <div class="route-address">${Helpers.truncate(p.pickup_address, 22)}</div>
                   </div>
                   <div class="route-arrow">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
                   </div>
                   <div class="route-point">
-                    <div class="route-label">To</div>
+                    <div class="route-label">${i18n.t('dashboard.to')}</div>
                     <div class="route-address">${Helpers.truncate(p.delivery_address, 22)}</div>
                   </div>
                 </div>
@@ -902,7 +914,7 @@
             let paginationHtml = '';
             if (res.meta.pages > 1) {
               paginationHtml = `
-                <span class="pagination-info">${res.meta.total} parcels</span>
+                <span class="pagination-info">${res.meta.total} ${i18n.t('dashboard.parcels')}</span>
                 <button class="pagination-btn" onclick="changeParcelPage(-1)" ${res.meta.page <= 1 ? 'disabled' : ''}>&#8249;</button>
                 <span class="pagination-btn active">${res.meta.page}</span>
                 <button class="pagination-btn" onclick="changeParcelPage(1)" ${res.meta.page >= res.meta.pages ? 'disabled' : ''}>&#8250;</button>
@@ -912,7 +924,7 @@
           }
         }
       } catch (err) {
-        toast.error('Failed to load parcels');
+        toast.error(i18n.t('dashboard.failedLoadParcels'));
       }
     }
 
@@ -935,9 +947,9 @@
     function setGreeting() {
       const hour = new Date().getHours();
       const el = document.getElementById('greetingText');
-      if (hour < 12) el.innerHTML = 'Good Morning <span class="greeting-wave">&#128075;</span>';
-      else if (hour < 17) el.innerHTML = 'Good Afternoon <span class="greeting-wave">&#128075;</span>';
-      else el.innerHTML = 'Good Evening <span class="greeting-wave">&#128075;</span>';
+      if (hour < 12) el.innerHTML = i18n.t('dashboard.greetingMorning') + ' <span class="greeting-wave">&#128075;</span>';
+      else if (hour < 17) el.innerHTML = i18n.t('dashboard.greetingAfternoon') + ' <span class="greeting-wave">&#128075;</span>';
+      else el.innerHTML = i18n.t('dashboard.greetingEvening') + ' <span class="greeting-wave">&#128075;</span>';
     }
 
     function changeParcelPage(delta) {
@@ -951,7 +963,7 @@
 
       const deliveryCharge = parseFloat(document.getElementById('delivery_charge').value);
       if (!deliveryCharge || deliveryCharge <= 0) {
-        toast.error('Invalid amount', 'Delivery charge must be greater than 0');
+        toast.error(i18n.t('dashboard.invalidAmount'), i18n.t('dashboard.chargeMustBePositive'));
         document.getElementById('delivery_charge').focus();
         return;
       }
@@ -980,44 +992,44 @@
             <div class="d-grid gap-4">
               <div class="d-flex justify-between items-center">
                 <div>
-                  <div class="text-xs text-muted uppercase tracking-wide mb-1">Tracking ID</div>
+                  <div class="text-xs text-muted uppercase tracking-wide mb-1">${i18n.t('common.trackingId')}</div>
                   <div class="font-mono font-bold text-lg">${p.tracking_id}</div>
                 </div>
                 ${Helpers.getStatusBadge(p.status)}
               </div>
               <div class="d-grid gap-3 parcel-detail-grid">
                 <div>
-                  <div class="text-xs text-muted mb-1">Pickup</div>
+                  <div class="text-xs text-muted mb-1">${i18n.t('dashboard.pickup')}</div>
                   <div class="text-sm font-medium">${p.pickup_address}</div>
                 </div>
                 <div>
-                  <div class="text-xs text-muted mb-1">Delivery</div>
+                  <div class="text-xs text-muted mb-1">${i18n.t('dashboard.delivery')}</div>
                   <div class="text-sm font-medium">${p.delivery_address}</div>
                 </div>
                 <div>
-                  <div class="text-xs text-muted mb-1">Customer</div>
+                  <div class="text-xs text-muted mb-1">${i18n.t('dashboard.customer')}</div>
                   <div class="text-sm font-medium">${p.customer_name}</div>
                   <div class="text-xs text-muted">${p.customer_phone}</div>
                 </div>
                 <div>
-                  <div class="text-xs text-muted mb-1">Driver</div>
-                  <div class="text-sm font-medium">${p.driver_name || 'Not assigned'}</div>
+                  <div class="text-xs text-muted mb-1">${i18n.t('dashboard.driver')}</div>
+                  <div class="text-sm font-medium">${p.driver_name || i18n.t('dashboard.notAssigned')}</div>
                   ${p.driver_phone ? `<div class="text-xs text-muted">${p.driver_phone}</div>` : ''}
                 </div>
                 <div>
-                  <div class="text-xs text-muted mb-1">Parcel Type</div>
+                  <div class="text-xs text-muted mb-1">${i18n.t('dashboard.parcelTypeLabel')}</div>
                   <div class="text-sm font-medium">${p.parcel_type || '-'}</div>
                 </div>
                 <div>
-                  <div class="text-xs text-muted mb-1">Delivery Charge</div>
+                  <div class="text-xs text-muted mb-1">${i18n.t('dashboard.deliveryChargeLabel')}</div>
                   <div class="text-sm font-bold">${Helpers.formatCurrency(p.delivery_charge)}</div>
                 </div>
               </div>
-              ${p.description ? `<div><div class="text-xs text-muted mb-1">Description</div><div class="text-sm">${p.description}</div></div>` : ''}
-              ${p.otp ? `<div class="p-3 rounded" style="background: var(--bg-hover);"><div class="text-xs text-muted mb-1">Delivery OTP</div><div class="font-mono font-bold text-lg">${p.otp}</div></div>` : ''}
+              ${p.description ? `<div><div class="text-xs text-muted mb-1">${i18n.t('dashboard.descriptionLabel')}</div><div class="text-sm">${p.description}</div></div>` : ''}
+              ${p.otp ? `<div class="p-3 rounded" style="background: var(--bg-hover);"><div class="text-xs text-muted mb-1">${i18n.t('dashboard.deliveryOtp')}</div><div class="font-mono font-bold text-lg">${p.otp}</div></div>` : ''}
               ${p.history && p.history.length > 0 ? `
                 <div>
-                  <div class="font-semibold mb-2">Status History</div>
+                  <div class="font-semibold mb-2">${i18n.t('dashboard.statusHistory')}</div>
                   <div class="d-grid gap-2">
                     ${p.history.map(h => `
                       <div class="d-flex items-center gap-3 text-sm">
@@ -1034,21 +1046,21 @@
           openModal('parcelModal');
         }
       } catch (err) {
-        toast.error('Failed to load parcel details');
+        toast.error(i18n.t('dashboard.failedLoadDetails'));
       }
     }
 
     async function cancelParcel(id) {
-      if (!confirm('Are you sure you want to cancel this parcel?')) return;
+      if (!confirm(i18n.t('dashboard.cancelConfirm'))) return;
       try {
         const res = await api.put(`/parcels/${id}/cancel`);
         if (res.success) {
-          toast.success('Parcel cancelled');
+          toast.success(i18n.t('dashboard.parcelCancelled'));
           loadParcels();
           loadDashboard();
         }
       } catch (err) {
-        toast.error('Failed to cancel parcel', err.message);
+        toast.error(i18n.t('dashboard.failedCancelParcel'), err.message);
       }
     }
 
@@ -1089,12 +1101,12 @@
         const res = await api.get('/parcels', { status: 'delivered', limit: 50 });
         if (res.success) {
           document.getElementById('paymentTable').innerHTML = res.data.length === 0
-            ? '<tr><td colspan="4" class="table-empty"><p>No payments yet</p></td></tr>'
+            ? `<tr><td colspan="4" class="table-empty"><p>${i18n.t('dashboard.noPayments')}</p></td></tr>`
             : res.data.map(p => `
               <tr>
                 <td class="font-mono text-sm">${p.tracking_id}</td>
                 <td class="font-semibold">${Helpers.formatCurrency(p.delivery_charge)}</td>
-                <td><span class="badge badge-delivered">Paid</span></td>
+                <td><span class="badge badge-delivered">${i18n.t('dashboard.paid')}</span></td>
                 <td class="text-sm text-muted">${Helpers.formatDate(p.delivered_at || p.created_at)}</td>
               </tr>
             `).join('');
@@ -1118,7 +1130,7 @@
           }
 
           document.getElementById('notificationList').innerHTML = notifications.length === 0
-            ? '<div class="text-center p-6"><p class="text-muted">No notifications</p></div>'
+            ? `<div class="text-center p-6"><p class="text-muted">${i18n.t('dashboard.noNotifications')}</p></div>`
             : notifications.map(n => `
               <div class="notification-item ${n.is_read ? '' : 'unread'}" onclick="markNotifRead(${n.id})">
                 <div class="notification-content">
@@ -1139,7 +1151,7 @@
 
     async function markAllRead() {
       await api.put('/notifications/all/read');
-      toast.success('All notifications marked as read');
+      toast.success(i18n.t('dashboard.allMarkedRead'));
       loadNotifications();
     }
 
@@ -1166,13 +1178,13 @@
           phone: document.getElementById('settPhone').value
         });
         if (res.success) {
-          toast.success('Profile updated');
+          toast.success(i18n.t('dashboard.profileUpdated'));
           const user = Auth.getUser();
           user.full_name = document.getElementById('settName').value;
           user.phone = document.getElementById('settPhone').value;
           Auth.setUser(user);
         }
-      } catch (err) { toast.error('Failed to update profile'); }
+      } catch (err) { toast.error(i18n.t('dashboard.failedUpdateProfile')); }
     });
 
     document.getElementById('shopForm').addEventListener('submit', async (e) => {
@@ -1184,8 +1196,8 @@
           shop_type: document.getElementById('settShopType').value,
           city: document.getElementById('settCity').value
         });
-        if (res.success) toast.success('Shop details updated');
-      } catch (err) { toast.error('Failed to update shop'); }
+        if (res.success) toast.success(i18n.t('dashboard.shopUpdated'));
+      } catch (err) { toast.error(i18n.t('dashboard.failedUpdateShop')); }
     });
 
     document.getElementById('passwordForm').addEventListener('submit', async (e) => {
@@ -1196,7 +1208,7 @@
           new_password: document.getElementById('settNewPw').value
         });
         if (res.success) {
-          toast.success('Password updated');
+          toast.success(i18n.t('dashboard.passwordUpdated'));
           e.target.reset();
         }
       } catch (err) { toast.error(err.message); }
@@ -1211,6 +1223,29 @@
       overlay.addEventListener('click', (e) => {
         if (e.target === overlay) overlay.classList.remove('active');
       });
+    });
+
+    // Re-translate page content when language changes
+    window.addEventListener('languageChanged', () => {
+      const titles = {
+        overview: i18n.t('nav.dashboard'),
+        parcels: i18n.t('nav.myParcels'),
+        create: i18n.t('nav.newDelivery'),
+        analytics: i18n.t('nav.analytics'),
+        payments: i18n.t('nav.payments'),
+        notifications: i18n.t('nav.notifications'),
+        settings: i18n.t('nav.settings')
+      };
+      const active = document.querySelector('.sidebar-link.active');
+      if (active) {
+        const page = active.dataset.page;
+        document.getElementById('pageTitle').textContent = titles[page] || '';
+      }
+      setGreeting();
+      loadDashboard();
+      if (document.getElementById('page-parcels').style.display !== 'none') loadParcels();
+      if (document.getElementById('page-payments').style.display !== 'none') loadPayments();
+      if (document.getElementById('page-notifications').style.display !== 'none') loadNotifications();
     });
   </script>
   <style>

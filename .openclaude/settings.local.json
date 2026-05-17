@@ -10,7 +10,9 @@
       "Bash(done)",
       "Bash(node -c src/controllers/parcelController.js)",
       "Bash(node -c src/routes/api/parcels.js)",
-      "Bash(node -c src/routes/api/drivers.js)"
+      "Bash(node -c src/routes/api/drivers.js)",
+      "Bash(node -e \"require\\(''C:/Users/NAMAN/Desktop/Projects/Quickly/public/js/utils/i18n.js''\\)\")",
+      "Bash(node --check \"C:/Users/NAMAN/Desktop/Projects/Quickly/public/js/utils/i18n.js\")"
     ]
   }
 }

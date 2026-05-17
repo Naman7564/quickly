@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel - Quickly</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/utils/variables.css">
   <link rel="stylesheet" href="/css/utils/base.css">
   <link rel="stylesheet" href="/css/utils/utilities.css">
@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="/css/components/modals.css">
   <link rel="stylesheet" href="/css/components/sidebar.css">
   <link rel="stylesheet" href="/css/pages/dashboard.css">
+  <link rel="stylesheet" href="/css/components/lang-switcher.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%234F46E5'/><text x='50%25' y='55%25' text-anchor='middle' dominant-baseline='middle' font-size='18' font-weight='bold' fill='white'>Q</text></svg>">
 </head>
 <body>
@@ -26,49 +27,49 @@
       </div>
       <nav class="sidebar-nav">
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Overview</div>
+          <div class="sidebar-section-title" data-i18n="common.overview">Overview</div>
           <a class="sidebar-link active" data-page="overview" onclick="showPage('overview')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             </span>
-            Dashboard
+            <span data-i18n="nav.dashboard">Dashboard</span>
           </a>
         </div>
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Management</div>
+          <div class="sidebar-section-title" data-i18n="admin.management">Management</div>
           <a class="sidebar-link" data-page="users" onclick="showPage('users')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </span>
-            Users
+            <span data-i18n="admin.users">Users</span>
           </a>
           <a class="sidebar-link" data-page="drivers" onclick="showPage('drivers')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
             </span>
-            Drivers
+            <span data-i18n="admin.drivers">Drivers</span>
             <span class="sidebar-link-badge" id="pendingBadge" style="display:none">0</span>
           </a>
           <a class="sidebar-link" data-page="parcels" onclick="showPage('parcels')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
             </span>
-            All Parcels
+            <span data-i18n="admin.allParcels">All Parcels</span>
           </a>
           <a class="sidebar-link" data-page="reports" onclick="showPage('reports')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
             </span>
-            Reports
+            <span data-i18n="admin.reports">Reports</span>
           </a>
         </div>
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Settings</div>
+          <div class="sidebar-section-title" data-i18n="nav.settings">Settings</div>
           <a class="sidebar-link" data-page="settings" onclick="showPage('settings')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
             </span>
-            Platform Settings
+            <span data-i18n="admin.platformSettings">Platform Settings</span>
           </a>
         </div>
       </nav>
@@ -77,7 +78,7 @@
           <div class="sidebar-user-avatar" style="background: var(--danger);">A</div>
           <div class="sidebar-user-info">
             <div class="sidebar-user-name">Admin</div>
-            <div class="sidebar-user-role">Administrator</div>
+            <div class="sidebar-user-role" data-i18n="admin.administrator">Administrator</div>
           </div>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         </div>
@@ -95,6 +96,11 @@
           <h2 class="topbar-title" id="pageTitle">Admin Dashboard</h2>
         </div>
         <div class="topbar-right">
+          <div class="lang-switcher" id="langSwitcher">
+            <button class="lang-option active" data-lang="en">EN</button>
+            <button class="lang-option" data-lang="hi">हिं</button>
+            <div class="lang-slider"></div>
+          </div>
           <button class="topbar-btn" onclick="toggleTheme()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
           </button>
@@ -105,51 +111,51 @@
         <!-- Overview -->
         <div class="page-section" id="page-overview">
           <div class="page-header">
-            <h1>Platform Overview</h1>
-            <p>City-wide delivery platform analytics</p>
+            <h1 data-i18n="admin.platformOverview">Platform Overview</h1>
+            <p data-i18n="admin.cityWideAnalytics">City-wide delivery platform analytics</p>
           </div>
           <div class="stats-grid">
             <div class="stat-card animate-fade-in">
               <div class="stat-card-icon primary">&#128101;</div>
               <div class="stat-card-value" id="statUsers">0</div>
-              <div class="stat-card-label">Total Users</div>
+              <div class="stat-card-label" data-i18n="admin.totalUsers">Total Users</div>
             </div>
             <div class="stat-card animate-fade-in delay-1">
               <div class="stat-card-icon secondary">&#128666;</div>
               <div class="stat-card-value" id="statDrivers">0</div>
-              <div class="stat-card-label">Drivers</div>
+              <div class="stat-card-label" data-i18n="admin.drivers">Drivers</div>
             </div>
             <div class="stat-card animate-fade-in delay-2">
               <div class="stat-card-icon accent">&#9744;</div>
               <div class="stat-card-value" id="statParcels">0</div>
-              <div class="stat-card-label">Total Parcels</div>
+              <div class="stat-card-label" data-i18n="admin.totalParcels">Total Parcels</div>
             </div>
             <div class="stat-card animate-fade-in delay-3">
               <div class="stat-card-icon danger">&#36;</div>
               <div class="stat-card-value" id="statRevenue">&#8377;0</div>
-              <div class="stat-card-label">Total Revenue</div>
+              <div class="stat-card-label" data-i18n="admin.totalRevenue">Total Revenue</div>
             </div>
           </div>
           <div class="stats-grid mt-4">
             <div class="stat-card">
               <div class="stat-card-icon primary">&#9632;</div>
               <div class="stat-card-value" id="statActive">0</div>
-              <div class="stat-card-label">Active Deliveries</div>
+              <div class="stat-card-label" data-i18n="admin.activeDeliveries">Active Deliveries</div>
             </div>
             <div class="stat-card">
               <div class="stat-card-icon secondary">&#10003;</div>
               <div class="stat-card-value" id="statTodayDelivered">0</div>
-              <div class="stat-card-label">Delivered Today</div>
+              <div class="stat-card-label" data-i18n="admin.deliveredToday">Delivered Today</div>
             </div>
             <div class="stat-card">
               <div class="stat-card-icon accent">&#128100;</div>
               <div class="stat-card-value" id="statShops">0</div>
-              <div class="stat-card-label">Shop Owners</div>
+              <div class="stat-card-label" data-i18n="admin.shopOwners">Shop Owners</div>
             </div>
             <div class="stat-card">
               <div class="stat-card-icon danger">&#9888;</div>
               <div class="stat-card-value" id="statPendingDrivers">0</div>
-              <div class="stat-card-label">Pending Approvals</div>
+              <div class="stat-card-label" data-i18n="admin.pendingApprovals">Pending Approvals</div>
             </div>
           </div>
         </div>
@@ -157,28 +163,28 @@
         <!-- Users -->
         <div class="page-section" id="page-users" style="display:none">
           <div class="page-header">
-            <h1>Users</h1>
-            <p>Manage all platform users</p>
+            <h1 data-i18n="admin.users">Users</h1>
+            <p data-i18n="admin.manageUsers">Manage all platform users</p>
           </div>
           <div class="d-flex gap-3 mb-4 flex-wrap">
             <select class="form-select" style="width:auto" id="filterUserRole" onchange="loadUsers()">
-              <option value="">All Roles</option>
-              <option value="shop_owner">Shop Owners</option>
-              <option value="driver">Drivers</option>
+              <option value="" data-i18n="admin.allRoles">All Roles</option>
+              <option value="shop_owner" data-i18n="admin.shopOwners">Shop Owners</option>
+              <option value="driver" data-i18n="admin.drivers">Drivers</option>
             </select>
-            <input type="text" class="form-input" style="width:250px" placeholder="Search users..." id="searchUsers" oninput="debouncedUserSearch()">
+            <input type="text" class="form-input" style="width:250px" placeholder="Search users..." id="searchUsers" oninput="debouncedUserSearch()" data-i18n-placeholder="admin.searchUsers">
           </div>
           <div class="table-container">
             <table class="table">
               <thead>
                 <tr>
-                  <th>User</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Role</th>
-                  <th>Status</th>
-                  <th>Joined</th>
-                  <th>Actions</th>
+                  <th data-i18n="admin.user">User</th>
+                  <th data-i18n="admin.email">Email</th>
+                  <th data-i18n="admin.phone">Phone</th>
+                  <th data-i18n="admin.role">Role</th>
+                  <th data-i18n="common.status">Status</th>
+                  <th data-i18n="admin.joined">Joined</th>
+                  <th data-i18n="common.actions">Actions</th>
                 </tr>
               </thead>
               <tbody id="usersTable"><tr><td colspan="7" class="table-empty"><div class="spinner mx-auto"></div></td></tr></tbody>
@@ -189,28 +195,28 @@
         <!-- Drivers -->
         <div class="page-section" id="page-drivers" style="display:none">
           <div class="page-header">
-            <h1>Drivers</h1>
-            <p>Manage delivery drivers and approvals</p>
+            <h1 data-i18n="admin.drivers">Drivers</h1>
+            <p data-i18n="admin.manageDrivers">Manage delivery drivers and approvals</p>
           </div>
           <div class="d-flex gap-3 mb-4">
             <select class="form-select" style="width:auto" id="filterDriverStatus" onchange="loadDrivers()">
-              <option value="">All</option>
-              <option value="true">Approved</option>
-              <option value="false">Pending</option>
+              <option value="" data-i18n="common.all">All</option>
+              <option value="true" data-i18n="status.approved">Approved</option>
+              <option value="false" data-i18n="status.pending">Pending</option>
             </select>
           </div>
           <div class="table-container">
             <table class="table">
               <thead>
                 <tr>
-                  <th>Driver</th>
-                  <th>Email</th>
-                  <th>Vehicle</th>
-                  <th>Deliveries</th>
-                  <th>Earnings</th>
-                  <th>Rating</th>
-                  <th>Status</th>
-                  <th>Actions</th>
+                  <th data-i18n="admin.driver">Driver</th>
+                  <th data-i18n="admin.email">Email</th>
+                  <th data-i18n="admin.vehicle">Vehicle</th>
+                  <th data-i18n="admin.deliveries">Deliveries</th>
+                  <th data-i18n="admin.earnings">Earnings</th>
+                  <th data-i18n="admin.rating">Rating</th>
+                  <th data-i18n="common.status">Status</th>
+                  <th data-i18n="common.actions">Actions</th>
                 </tr>
               </thead>
               <tbody id="driversTable"><tr><td colspan="8" class="table-empty"><div class="spinner mx-auto"></div></td></tr></tbody>
@@ -221,30 +227,30 @@
         <!-- Parcels -->
         <div class="page-section" id="page-parcels" style="display:none">
           <div class="page-header">
-            <h1>All Parcels</h1>
-            <p>Monitor all deliveries across the platform</p>
+            <h1 data-i18n="admin.allParcels">All Parcels</h1>
+            <p data-i18n="admin.monitorDeliveries">Monitor all deliveries across the platform</p>
           </div>
           <div class="d-flex gap-3 mb-4">
             <select class="form-select" style="width:auto" id="filterParcelStatus" onchange="loadAllParcels()">
-              <option value="">All Status</option>
-              <option value="pending">Pending</option>
-              <option value="accepted">Accepted</option>
-              <option value="in_transit">In Transit</option>
-              <option value="delivered">Delivered</option>
-              <option value="cancelled">Cancelled</option>
+              <option value="" data-i18n="driver.allStatus">All Status</option>
+              <option value="pending" data-i18n="status.pending">Pending</option>
+              <option value="accepted" data-i18n="status.accepted">Accepted</option>
+              <option value="in_transit" data-i18n="status.in_transit">In Transit</option>
+              <option value="delivered" data-i18n="status.delivered">Delivered</option>
+              <option value="cancelled" data-i18n="status.cancelled">Cancelled</option>
             </select>
           </div>
           <div class="table-container">
             <table class="table">
               <thead>
                 <tr>
-                  <th>Tracking</th>
-                  <th>Shop</th>
-                  <th>Customer</th>
-                  <th>Driver</th>
-                  <th>Status</th>
-                  <th>Charge</th>
-                  <th>Date</th>
+                  <th data-i18n="common.trackingId">Tracking</th>
+                  <th data-i18n="admin.shop">Shop</th>
+                  <th data-i18n="admin.customer">Customer</th>
+                  <th data-i18n="admin.driver">Driver</th>
+                  <th data-i18n="common.status">Status</th>
+                  <th data-i18n="admin.charge">Charge</th>
+                  <th data-i18n="common.date">Date</th>
                 </tr>
               </thead>
               <tbody id="allParcelsTable"><tr><td colspan="7" class="table-empty"><div class="spinner mx-auto"></div></td></tr></tbody>
@@ -255,19 +261,19 @@
         <!-- Reports -->
         <div class="page-section" id="page-reports" style="display:none">
           <div class="page-header">
-            <h1>Reports & Issues</h1>
-            <p>Manage user reports and complaints</p>
+            <h1 data-i18n="admin.reportsIssues">Reports & Issues</h1>
+            <p data-i18n="admin.manageReports">Manage user reports and complaints</p>
           </div>
           <div class="table-container">
             <table class="table">
               <thead>
                 <tr>
-                  <th>Reporter</th>
-                  <th>Subject</th>
-                  <th>Description</th>
-                  <th>Status</th>
-                  <th>Date</th>
-                  <th>Actions</th>
+                  <th data-i18n="admin.reporter">Reporter</th>
+                  <th data-i18n="admin.subject">Subject</th>
+                  <th data-i18n="admin.description">Description</th>
+                  <th data-i18n="common.status">Status</th>
+                  <th data-i18n="common.date">Date</th>
+                  <th data-i18n="common.actions">Actions</th>
                 </tr>
               </thead>
               <tbody id="reportsTable"><tr><td colspan="6" class="table-empty"><div class="spinner mx-auto"></div></td></tr></tbody>
@@ -278,36 +284,36 @@
         <!-- Settings -->
         <div class="page-section" id="page-settings" style="display:none">
           <div class="page-header">
-            <h1>Platform Settings</h1>
-            <p>Configure platform-wide settings</p>
+            <h1 data-i18n="admin.platformSettings">Platform Settings</h1>
+            <p data-i18n="admin.configure">Configure platform-wide settings</p>
           </div>
           <div class="card" style="max-width: 640px;">
             <div class="card-body">
               <form id="settingsForm">
                 <div class="form-group">
-                  <label class="form-label">Commission Rate (%)</label>
+                  <label class="form-label" data-i18n="admin.commissionRate">Commission Rate (%)</label>
                   <input type="number" class="form-input" id="settCommission" min="0" max="50">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Max Parcel Weight (kg)</label>
+                  <label class="form-label" data-i18n="admin.maxWeight">Max Parcel Weight (kg)</label>
                   <input type="number" class="form-input" id="settMaxWeight" min="1">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">OTP Required</label>
+                  <label class="form-label" data-i18n="admin.otpRequired">OTP Required</label>
                   <select class="form-select" id="settOtp">
-                    <option value="true">Yes</option>
-                    <option value="false">No</option>
+                    <option value="true" data-i18n="common.yes">Yes</option>
+                    <option value="false" data-i18n="common.no">No</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Support Email</label>
+                  <label class="form-label" data-i18n="admin.supportEmail">Support Email</label>
                   <input type="email" class="form-input" id="settSupportEmail">
                 </div>
                 <div class="form-group">
-                  <label class="form-label">Support Phone</label>
+                  <label class="form-label" data-i18n="admin.supportPhone">Support Phone</label>
                   <input type="text" class="form-input" id="settSupportPhone">
                 </div>
-                <button type="submit" class="btn btn-primary">Save Settings</button>
+                <button type="submit" class="btn btn-primary" data-i18n="admin.saveSettings">Save Settings</button>
               </form>
             </div>
           </div>
@@ -316,6 +322,7 @@
     </main>
   </div>
 
+  <script src="/js/utils/i18n.js"></script>
   <script src="/js/utils/api.js"></script>
   <script src="/js/utils/auth.js"></script>
   <script src="/js/utils/toast.js"></script>
@@ -331,7 +338,14 @@
       document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
       document.querySelector(`[data-page="${page}"]`)?.classList.add('active');
 
-      const titles = { overview: 'Admin Dashboard', users: 'Users', drivers: 'Drivers', parcels: 'All Parcels', reports: 'Reports', settings: 'Settings' };
+      const titles = {
+        overview: i18n.t('nav.dashboard'),
+        users: i18n.t('admin.users'),
+        drivers: i18n.t('admin.drivers'),
+        parcels: i18n.t('admin.allParcels'),
+        reports: i18n.t('admin.reports'),
+        settings: i18n.t('admin.platformSettings')
+      };
       document.getElementById('pageTitle').textContent = titles[page] || 'Admin';
 
       if (page === 'users') loadUsers();
@@ -347,6 +361,15 @@
     function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('active'); }
     function toggleTheme() { const c = document.documentElement.getAttribute('data-theme'); const n = c === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', n); localStorage.setItem('quickly_theme', n); }
     const st = localStorage.getItem('quickly_theme'); if (st) document.documentElement.setAttribute('data-theme', st);
+
+    // Re-render current page on language change
+    document.addEventListener('languageChanged', () => {
+      const activeLink = document.querySelector('.sidebar-link.active');
+      if (activeLink) {
+        const page = activeLink.dataset.page;
+        showPage(page);
+      }
+    });
 
     async function loadAdminStats() {
       try {
@@ -375,7 +398,7 @@
         const res = await api.get('/admin/users', { role, search });
         if (res.success) {
           document.getElementById('usersTable').innerHTML = res.data.length === 0
-            ? '<tr><td colspan="7" class="table-empty"><p>No users found</p></td></tr>'
+            ? `<tr><td colspan="7" class="table-empty"><p>${i18n.t('admin.noUsers')}</p></td></tr>`
             : res.data.map(u => `
               <tr>
                 <td>
@@ -387,15 +410,15 @@
                 <td class="text-sm">${u.email}</td>
                 <td class="text-sm">${u.phone}</td>
                 <td><span class="badge" style="background: var(--primary); color: white; background-opacity: 0.1;">${u.role}</span></td>
-                <td><span class="badge ${u.is_active ? 'badge-active' : 'badge-inactive'}">${u.is_active ? 'Active' : 'Inactive'}</span></td>
+                <td><span class="badge ${u.is_active ? 'badge-active' : 'badge-inactive'}">${u.is_active ? i18n.t('status.active') : i18n.t('status.inactive')}</span></td>
                 <td class="text-sm text-muted">${Helpers.formatDate(u.created_at)}</td>
                 <td>
-                  <button class="btn btn-ghost btn-sm" onclick="toggleUserStatus(${u.id})">${u.is_active ? 'Deactivate' : 'Activate'}</button>
+                  <button class="btn btn-ghost btn-sm" onclick="toggleUserStatus(${u.id})">${u.is_active ? i18n.t('admin.deactivate') : i18n.t('admin.activate')}</button>
                 </td>
               </tr>
             `).join('');
         }
-      } catch (err) { toast.error('Failed to load users'); }
+      } catch (err) { toast.error(i18n.t('toast.failedLoadUsers')); }
     }
 
     const debouncedUserSearch = Helpers.debounce(loadUsers);
@@ -413,7 +436,7 @@
         const res = await api.get('/admin/drivers', { approved });
         if (res.success) {
           document.getElementById('driversTable').innerHTML = res.data.length === 0
-            ? '<tr><td colspan="8" class="table-empty"><p>No drivers found</p></td></tr>'
+            ? `<tr><td colspan="8" class="table-empty"><p>${i18n.t('admin.noDrivers')}</p></td></tr>`
             : res.data.map(d => `
               <tr>
                 <td>
@@ -426,38 +449,38 @@
                   </div>
                 </td>
                 <td class="text-sm">${d.email}</td>
-                <td class="text-sm">${d.vehicle_type} - ${d.vehicle_number || 'N/A'}</td>
+                <td class="text-sm">${d.vehicle_type} - ${d.vehicle_number || i18n.t('common.na')}</td>
                 <td class="text-sm">${d.total_deliveries}</td>
                 <td class="text-sm font-semibold">${Helpers.formatCurrency(d.total_earnings)}</td>
                 <td class="text-sm">${(d.rating || 5).toFixed(1)} &#9733;</td>
                 <td>
-                  ${d.is_approved ? '<span class="badge badge-active">Approved</span>' : '<span class="badge badge-pending">Pending</span>'}
+                  ${d.is_approved ? `<span class="badge badge-active">${i18n.t('status.approved')}</span>` : `<span class="badge badge-pending">${i18n.t('status.pending')}</span>`}
                 </td>
                 <td>
                   <div class="table-actions">
                     ${d.is_approved
-                      ? `<button class="btn btn-ghost btn-sm text-danger" onclick="rejectDriver(${d.user_id})">Reject</button>`
-                      : `<button class="btn btn-primary btn-sm" onclick="approveDriver(${d.user_id})">Approve</button>`
+                      ? `<button class="btn btn-ghost btn-sm text-danger" onclick="rejectDriver(${d.user_id})">${i18n.t('admin.reject')}</button>`
+                      : `<button class="btn btn-primary btn-sm" onclick="approveDriver(${d.user_id})">${i18n.t('admin.approve')}</button>`
                     }
                   </div>
                 </td>
               </tr>
             `).join('');
         }
-      } catch (err) { toast.error('Failed to load drivers'); }
+      } catch (err) { toast.error(i18n.t('toast.failedLoadDrivers')); }
     }
 
     async function approveDriver(id) {
       try {
         const res = await api.put(`/admin/drivers/${id}/approve`);
-        if (res.success) { toast.success('Driver approved'); loadDrivers(); loadAdminStats(); }
+        if (res.success) { toast.success(i18n.t('toast.driverApproved')); loadDrivers(); loadAdminStats(); }
       } catch (err) { toast.error(err.message); }
     }
 
     async function rejectDriver(id) {
       try {
         const res = await api.put(`/admin/drivers/${id}/reject`);
-        if (res.success) { toast.success('Driver rejected'); loadDrivers(); }
+        if (res.success) { toast.success(i18n.t('toast.driverRejected')); loadDrivers(); }
       } catch (err) { toast.error(err.message); }
     }
 
@@ -467,20 +490,20 @@
         const res = await api.get('/admin/parcels', { status });
         if (res.success) {
           document.getElementById('allParcelsTable').innerHTML = res.data.length === 0
-            ? '<tr><td colspan="7" class="table-empty"><p>No parcels found</p></td></tr>'
+            ? `<tr><td colspan="7" class="table-empty"><p>${i18n.t('admin.noParcels')}</p></td></tr>`
             : res.data.map(p => `
               <tr>
                 <td class="font-mono text-sm">${p.tracking_id}</td>
                 <td class="text-sm">${p.shop_name || '-'}</td>
                 <td class="text-sm">${p.customer_name}</td>
-                <td class="text-sm">${p.driver_name || '<span class="text-muted">Unassigned</span>'}</td>
+                <td class="text-sm">${p.driver_name || `<span class="text-muted">${i18n.t('admin.unassigned')}</span>`}</td>
                 <td>${Helpers.getStatusBadge(p.status)}</td>
                 <td class="text-sm">${Helpers.formatCurrency(p.delivery_charge)}</td>
                 <td class="text-sm text-muted">${Helpers.formatDate(p.created_at)}</td>
               </tr>
             `).join('');
         }
-      } catch (err) { toast.error('Failed to load parcels'); }
+      } catch (err) { toast.error(i18n.t('toast.failedLoadParcels')); }
     }
 
     async function loadReports() {
@@ -488,32 +511,32 @@
         const res = await api.get('/admin/reports');
         if (res.success) {
           document.getElementById('reportsTable').innerHTML = res.data.length === 0
-            ? '<tr><td colspan="6" class="table-empty"><p>No reports</p></td></tr>'
+            ? `<tr><td colspan="6" class="table-empty"><p>${i18n.t('admin.noReports')}</p></td></tr>`
             : res.data.map(r => `
               <tr>
                 <td class="text-sm">${r.reporter_name}</td>
                 <td class="text-sm font-medium">${r.subject}</td>
                 <td class="text-sm">${Helpers.truncate(r.description, 50)}</td>
-                <td><span class="badge ${r.status === 'open' ? 'badge-pending' : r.status === 'resolved' ? 'badge-delivered' : 'badge-accepted'}">${r.status}</span></td>
+                <td><span class="badge ${r.status === 'open' ? 'badge-pending' : r.status === 'resolved' ? 'badge-delivered' : 'badge-accepted'}">${i18n.t('status.' + r.status) || r.status}</span></td>
                 <td class="text-sm text-muted">${Helpers.formatDate(r.created_at)}</td>
                 <td>
                   <select class="form-select" style="width:auto; padding:4px 8px; font-size:0.8rem;" onchange="updateReportStatus(${r.id}, this.value)">
-                    <option value="open" ${r.status === 'open' ? 'selected' : ''}>Open</option>
-                    <option value="investigating" ${r.status === 'investigating' ? 'selected' : ''}>Investigating</option>
-                    <option value="resolved" ${r.status === 'resolved' ? 'selected' : ''}>Resolved</option>
-                    <option value="closed" ${r.status === 'closed' ? 'selected' : ''}>Closed</option>
+                    <option value="open" ${r.status === 'open' ? 'selected' : ''}>${i18n.t('status.open')}</option>
+                    <option value="investigating" ${r.status === 'investigating' ? 'selected' : ''}>${i18n.t('status.investigating')}</option>
+                    <option value="resolved" ${r.status === 'resolved' ? 'selected' : ''}>${i18n.t('status.resolved')}</option>
+                    <option value="closed" ${r.status === 'closed' ? 'selected' : ''}>${i18n.t('status.closed')}</option>
                   </select>
                 </td>
               </tr>
             `).join('');
         }
-      } catch (err) { toast.error('Failed to load reports'); }
+      } catch (err) { toast.error(i18n.t('toast.failedLoadReports')); }
     }
 
     async function updateReportStatus(id, status) {
       try {
         await api.put(`/admin/reports/${id}`, { status });
-        toast.success('Report updated');
+        toast.success(i18n.t('toast.reportUpdated'));
       } catch (err) { toast.error(err.message); }
     }
 
@@ -540,8 +563,8 @@
           support_email: document.getElementById('settSupportEmail').value,
           support_phone: document.getElementById('settSupportPhone').value
         });
-        if (res.success) toast.success('Settings saved');
-      } catch (err) { toast.error('Failed to save settings'); }
+        if (res.success) toast.success(i18n.t('toast.settingsSaved'));
+      } catch (err) { toast.error(i18n.t('toast.failedSaveSettings')); }
     });
   </script>
 </body>

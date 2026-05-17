@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Driver Dashboard - Quickly</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/utils/variables.css">
   <link rel="stylesheet" href="/css/utils/base.css">
   <link rel="stylesheet" href="/css/utils/utilities.css">
@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="/css/components/modals.css">
   <link rel="stylesheet" href="/css/components/sidebar.css">
   <link rel="stylesheet" href="/css/pages/dashboard.css">
+  <link rel="stylesheet" href="/css/components/lang-switcher.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%234F46E5'/><text x='50%25' y='55%25' text-anchor='middle' dominant-baseline='middle' font-size='18' font-weight='bold' fill='white'>Q</text></svg>">
 </head>
 <body>
@@ -26,50 +27,50 @@
       </div>
       <nav class="sidebar-nav">
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Main</div>
+          <div class="sidebar-section-title" data-i18n="common.main">Main</div>
           <a class="sidebar-link active" data-page="overview" onclick="showPage('overview')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
             </span>
-            Dashboard
+            <span data-i18n="nav.dashboard">Dashboard</span>
           </a>
           <a class="sidebar-link" data-page="available" onclick="showPage('available')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
             </span>
-            Available Parcels
+            <span data-i18n="driver.availableParcels">Available Parcels</span>
           </a>
           <a class="sidebar-link" data-page="my-parcels" onclick="showPage('my-parcels')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><path d="M16.5 9.4l-9-5.19M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
             </span>
-            My Deliveries
+            <span data-i18n="driver.myDeliveries">My Deliveries</span>
             <span class="sidebar-link-badge" id="activeCount">0</span>
           </a>
         </div>
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Earnings</div>
+          <div class="sidebar-section-title" data-i18n="driver.earningsTitle">Earnings</div>
           <a class="sidebar-link" data-page="earnings" onclick="showPage('earnings')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             </span>
-            Earnings
+            <span data-i18n="driver.earningsTitle">Earnings</span>
           </a>
           </div>
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Account</div>
+          <div class="sidebar-section-title" data-i18n="common.account">Account</div>
           <a class="sidebar-link" data-page="notifications" onclick="showPage('notifications')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
             </span>
-            Notifications
+            <span data-i18n="nav.notifications">Notifications</span>
             <span class="sidebar-link-badge" id="notifBadge" style="display:none">0</span>
           </a>
           <a class="sidebar-link" data-page="profile" onclick="showPage('profile')">
             <span class="sidebar-link-icon">
               <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </span>
-            Profile
+            <span data-i18n="driver.profile">Profile</span>
           </a>
         </div>
       </nav>
@@ -96,6 +97,11 @@
           <h2 class="topbar-title" id="pageTitle">Dashboard</h2>
         </div>
         <div class="topbar-right">
+          <div class="lang-switcher" id="langSwitcher">
+            <button class="lang-option active" data-lang="en">EN</button>
+            <button class="lang-option" data-lang="hi">हिं</button>
+            <div class="lang-slider"></div>
+          </div>
           <button class="topbar-btn" onclick="toggleTheme()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
           </button>
@@ -112,8 +118,8 @@
           <div class="page-header">
             <div class="d-flex justify-between items-center">
               <div>
-                <h1>Welcome, <span id="welcomeName">Driver</span>!</h1>
-                <p>Manage your deliveries and track earnings</p>
+                <h1><span data-i18n="driver.welcome">Welcome</span>, <span id="welcomeName">Driver</span>!</h1>
+                <p data-i18n="driver.manageDeliveries">Manage your deliveries and track earnings</p>
               </div>
             </div>
           </div>
@@ -121,27 +127,27 @@
             <div class="stat-card animate-fade-in">
               <div class="stat-card-icon primary">&#128666;</div>
               <div class="stat-card-value" id="statActive">0</div>
-              <div class="stat-card-label">Active Deliveries</div>
+              <div class="stat-card-label" data-i18n="driver.activeDeliveries">Active Deliveries</div>
             </div>
             <div class="stat-card animate-fade-in delay-1">
               <div class="stat-card-icon secondary">&#10003;</div>
               <div class="stat-card-value" id="statToday">0</div>
-              <div class="stat-card-label">Today's Deliveries</div>
+              <div class="stat-card-label" data-i18n="driver.todayDeliveries">Today's Deliveries</div>
             </div>
             <div class="stat-card animate-fade-in delay-2">
               <div class="stat-card-icon accent">&#36;</div>
               <div class="stat-card-value" id="statTodayEarnings">&#8377;0</div>
-              <div class="stat-card-label">Today's Earnings</div>
+              <div class="stat-card-label" data-i18n="driver.todayEarnings">Today's Earnings</div>
             </div>
             <div class="stat-card animate-fade-in delay-3">
               <div class="stat-card-icon danger">&#9733;</div>
               <div class="stat-card-value" id="statRating">5.0</div>
-              <div class="stat-card-label">Rating</div>
+              <div class="stat-card-label" data-i18n="driver.rating">Rating</div>
             </div>
           </div>
 
           <div class="d-flex justify-between items-center mt-8 mb-4">
-            <h3>Current Deliveries</h3>
+            <h3 data-i18n="driver.currentDeliveries">Current Deliveries</h3>
           </div>
           <div id="currentDeliveries" class="d-grid gap-3">
             <div class="text-center p-6"><div class="spinner mx-auto"></div></div>
@@ -151,8 +157,8 @@
         <!-- Available Parcels -->
         <div class="page-section" id="page-available" style="display:none">
           <div class="page-header">
-            <h1>Available Parcels</h1>
-            <p>Pick up delivery requests near you</p>
+            <h1 data-i18n="driver.availableParcels">Available Parcels</h1>
+            <p data-i18n="driver.pickupRequests">Pick up delivery requests near you</p>
           </div>
           <div id="availableParcels" class="d-grid gap-3">
             <div class="text-center p-6"><div class="spinner mx-auto"></div></div>
@@ -162,29 +168,29 @@
         <!-- My Parcels -->
         <div class="page-section" id="page-my-parcels" style="display:none">
           <div class="page-header">
-            <h1>My Deliveries</h1>
-            <p>All your assigned and completed deliveries</p>
+            <h1 data-i18n="driver.myDeliveries">My Deliveries</h1>
+            <p data-i18n="driver.allAssigned">All your assigned and completed deliveries</p>
           </div>
           <div class="d-flex gap-3 mb-4">
             <select class="form-select" style="width:auto" id="filterMyStatus" onchange="loadMyParcels()">
-              <option value="">All Status</option>
-              <option value="accepted">Accepted</option>
-              <option value="picked_up">Picked Up</option>
-              <option value="in_transit">In Transit</option>
-              <option value="delivered">Delivered</option>
+              <option value="" data-i18n="driver.allStatus">All Status</option>
+              <option value="accepted" data-i18n="driver.accepted">Accepted</option>
+              <option value="picked_up" data-i18n="driver.pickedUp">Picked Up</option>
+              <option value="in_transit" data-i18n="driver.inTransit">In Transit</option>
+              <option value="delivered" data-i18n="driver.delivered">Delivered</option>
             </select>
           </div>
           <div class="table-container">
             <table class="table">
               <thead>
                 <tr>
-                  <th>Tracking ID</th>
-                  <th>Customer</th>
-                  <th>Pickup</th>
-                  <th>Delivery</th>
-                  <th>Status</th>
-                  <th>Charge</th>
-                  <th>Actions</th>
+                  <th data-i18n="common.trackingId">Tracking ID</th>
+                  <th data-i18n="driver.customer">Customer</th>
+                  <th data-i18n="driver.pickup">Pickup</th>
+                  <th data-i18n="driver.delivery">Delivery</th>
+                  <th data-i18n="common.status">Status</th>
+                  <th data-i18n="driver.charge">Charge</th>
+                  <th data-i18n="common.actions">Actions</th>
                 </tr>
               </thead>
               <tbody id="myParcelsTable">
@@ -197,29 +203,29 @@
         <!-- Earnings -->
         <div class="page-section" id="page-earnings" style="display:none">
           <div class="page-header">
-            <h1>Earnings</h1>
-            <p>Track your delivery earnings</p>
+            <h1 data-i18n="driver.earningsTitle">Earnings</h1>
+            <p data-i18n="driver.trackEarnings">Track your delivery earnings</p>
           </div>
           <div class="stats-grid mb-6">
             <div class="stat-card">
               <div class="stat-card-icon primary">&#36;</div>
               <div class="stat-card-value" id="earnToday">&#8377;0</div>
-              <div class="stat-card-label">Today</div>
+              <div class="stat-card-label" data-i18n="driver.today">Today</div>
             </div>
             <div class="stat-card">
               <div class="stat-card-icon secondary">&#36;</div>
               <div class="stat-card-value" id="earnWeek">&#8377;0</div>
-              <div class="stat-card-label">This Week</div>
+              <div class="stat-card-label" data-i18n="driver.thisWeek">This Week</div>
             </div>
             <div class="stat-card">
               <div class="stat-card-icon accent">&#36;</div>
               <div class="stat-card-value" id="earnMonth">&#8377;0</div>
-              <div class="stat-card-label">This Month</div>
+              <div class="stat-card-label" data-i18n="driver.thisMonth">This Month</div>
             </div>
             <div class="stat-card">
               <div class="stat-card-icon danger">&#36;</div>
               <div class="stat-card-value" id="earnTotal">&#8377;0</div>
-              <div class="stat-card-label">Total Earnings</div>
+              <div class="stat-card-label" data-i18n="driver.totalEarnings">Total Earnings</div>
             </div>
           </div>
         </div>
@@ -228,10 +234,10 @@
         <div class="page-section" id="page-notifications" style="display:none">
           <div class="page-header d-flex justify-between items-center">
             <div>
-              <h1>Notifications</h1>
-              <p>Stay updated</p>
+              <h1 data-i18n="nav.notifications">Notifications</h1>
+              <p data-i18n="driver.stayUpdated">Stay updated</p>
             </div>
-            <button class="btn btn-outline btn-sm" onclick="markAllRead()">Mark all read</button>
+            <button class="btn btn-outline btn-sm" onclick="markAllRead()" data-i18n="common.markAllRead">Mark all read</button>
           </div>
           <div id="notificationList"><div class="text-center p-6"><div class="spinner mx-auto"></div></div></div>
         </div>
@@ -239,68 +245,68 @@
         <!-- Profile -->
         <div class="page-section" id="page-profile" style="display:none">
           <div class="page-header">
-            <h1>Profile</h1>
-            <p>Manage your driver profile</p>
+            <h1 data-i18n="driver.profile">Profile</h1>
+            <p data-i18n="driver.manageProfile">Manage your driver profile</p>
           </div>
           <div class="d-grid gap-5" style="max-width: 640px;">
             <div class="card">
-              <div class="card-header"><h3>Personal Info</h3></div>
+              <div class="card-header"><h3 data-i18n="driver.personalInfo">Personal Info</h3></div>
               <div class="card-body">
                 <form id="profileForm">
                   <div class="form-row">
                     <div class="form-group">
-                      <label class="form-label">Full Name</label>
+                      <label class="form-label" data-i18n="dashboard.fullName">Full Name</label>
                       <input type="text" class="form-input" id="profName">
                     </div>
                     <div class="form-group">
-                      <label class="form-label">Phone</label>
+                      <label class="form-label" data-i18n="dashboard.phone">Phone</label>
                       <input type="tel" class="form-input" id="profPhone">
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-primary">Save</button>
+                  <button type="submit" class="btn btn-primary" data-i18n="common.save">Save</button>
                 </form>
               </div>
             </div>
             <div class="card">
-              <div class="card-header"><h3>Vehicle Details</h3></div>
+              <div class="card-header"><h3 data-i18n="driver.vehicleDetails">Vehicle Details</h3></div>
               <div class="card-body">
                 <form id="vehicleForm">
                   <div class="form-row">
                     <div class="form-group">
-                      <label class="form-label">Vehicle Type</label>
+                      <label class="form-label" data-i18n="driver.vehicleType">Vehicle Type</label>
                       <select class="form-select" id="profVehicleType">
-                        <option value="auto">Auto Rickshaw</option>
-                        <option value="lorry">Cargo Lorry</option>
-                        <option value="bike">Bike</option>
-                        <option value="van">Mini Van</option>
+                        <option value="auto" data-i18n="auth.autoRickshaw">Auto Rickshaw</option>
+                        <option value="lorry" data-i18n="auth.cargoLorry">Cargo Lorry</option>
+                        <option value="bike" data-i18n="auth.bike">Bike</option>
+                        <option value="van" data-i18n="auth.miniVan">Mini Van</option>
                       </select>
                     </div>
                     <div class="form-group">
-                      <label class="form-label">Vehicle Number</label>
+                      <label class="form-label" data-i18n="driver.vehicleNumber">Vehicle Number</label>
                       <input type="text" class="form-input" id="profVehicleNumber">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="form-label">License Number</label>
+                    <label class="form-label" data-i18n="driver.licenseNumber">License Number</label>
                     <input type="text" class="form-input" id="profLicense">
                   </div>
-                  <button type="submit" class="btn btn-primary">Update Vehicle</button>
+                  <button type="submit" class="btn btn-primary" data-i18n="driver.updateVehicle">Update Vehicle</button>
                 </form>
               </div>
             </div>
             <div class="card">
-              <div class="card-header"><h3>Change Password</h3></div>
+              <div class="card-header"><h3 data-i18n="driver.changePassword">Change Password</h3></div>
               <div class="card-body">
                 <form id="passwordForm">
                   <div class="form-group">
-                    <label class="form-label">Current Password</label>
+                    <label class="form-label" data-i18n="dashboard.currentPassword">Current Password</label>
                     <input type="password" class="form-input" id="profCurrentPw">
                   </div>
                   <div class="form-group">
-                    <label class="form-label">New Password</label>
+                    <label class="form-label" data-i18n="dashboard.newPassword">New Password</label>
                     <input type="password" class="form-input" id="profNewPw" minlength="6">
                   </div>
-                  <button type="submit" class="btn btn-primary">Update Password</button>
+                  <button type="submit" class="btn btn-primary" data-i18n="common.updatePassword">Update Password</button>
                 </form>
               </div>
             </div>
@@ -314,19 +320,19 @@
   <nav class="bottom-nav" id="bottomNav">
     <button class="bottom-nav-item active" data-page="overview" onclick="showPage('overview')">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      <span>Home</span>
+      <span data-i18n="nav.home">Home</span>
     </button>
     <button class="bottom-nav-item" data-page="available" onclick="showPage('available')">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
-      <span>Parcels</span>
+      <span data-i18n="nav.parcels">Parcels</span>
     </button>
         <button class="bottom-nav-item" data-page="earnings" onclick="showPage('earnings')">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      <span>Earnings</span>
+      <span data-i18n="driver.earningsTitle">Earnings</span>
     </button>
     <button class="bottom-nav-item" data-page="profile" onclick="showPage('profile')">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <span>Profile</span>
+      <span data-i18n="driver.profile">Profile</span>
     </button>
   </nav>
 
@@ -334,20 +340,21 @@
   <div class="modal-overlay" id="otpModal">
     <div class="modal modal-sm">
       <div class="modal-header">
-        <h3>Verify Delivery OTP</h3>
+        <h3 data-i18n="driver.verifyOtp">Verify Delivery OTP</h3>
         <button class="modal-close" onclick="closeModal('otpModal')">&times;</button>
       </div>
       <div class="modal-body">
-        <p class="text-sm text-muted mb-4">Ask the customer for the 4-digit OTP to confirm delivery.</p>
+        <p class="text-sm text-muted mb-4" data-i18n="driver.askCustomerOtp">Ask the customer for the 4-digit OTP to confirm delivery.</p>
         <div class="form-group">
-          <label class="form-label">Enter OTP</label>
+          <label class="form-label" data-i18n="driver.enterOtp">Enter OTP</label>
           <input type="text" class="form-input font-mono text-center text-2xl" id="otpInput" maxlength="4" pattern="[0-9]{4}" placeholder="0000">
         </div>
-        <button class="btn btn-primary btn-block" id="verifyOtpBtn" onclick="verifyOTP()">Verify & Complete</button>
+        <button class="btn btn-primary btn-block" id="verifyOtpBtn" onclick="verifyOTP()" data-i18n="driver.verifyComplete">Verify & Complete</button>
       </div>
     </div>
   </div>
 
+  <script src="/js/utils/i18n.js"></script>
   <script src="/js/utils/api.js"></script>
   <script src="/js/utils/auth.js"></script>
   <script src="/js/utils/toast.js"></script>
@@ -378,10 +385,14 @@
       document.querySelector(`.bottom-nav-item[data-page="${page}"]`)?.classList.add('active');
 
       const titles = {
-        overview: 'Dashboard', available: 'Available Parcels', 'my-parcels': 'My Deliveries',
-        earnings: 'Earnings', notifications: 'Notifications', profile: 'Profile'
+        overview: i18n.t('nav.dashboard'),
+        available: i18n.t('driver.availableParcels'),
+        'my-parcels': i18n.t('driver.myDeliveries'),
+        earnings: i18n.t('driver.earningsTitle'),
+        notifications: i18n.t('nav.notifications'),
+        profile: i18n.t('driver.profile')
       };
-      document.getElementById('pageTitle').textContent = titles[page] || 'Dashboard';
+      document.getElementById('pageTitle').textContent = titles[page] || i18n.t('nav.dashboard');
 
       if (page === 'available') loadAvailableParcels();
       if (page === 'my-parcels') loadMyParcels();
@@ -428,7 +439,7 @@
         if (res.success) {
           const active = res.data.filter(p => ['accepted', 'picked_up', 'in_transit'].includes(p.status));
           if (active.length === 0) {
-            document.getElementById('currentDeliveries').innerHTML = '<div class="card"><div class="card-body text-center p-6"><p class="text-muted">No active deliveries. Check available parcels to start earning!</p><button class="btn btn-primary mt-4" onclick="showPage(\'available\')">Browse Parcels</button></div></div>';
+            document.getElementById('currentDeliveries').innerHTML = `<div class="card"><div class="card-body text-center p-6"><p class="text-muted">${i18n.t('driver.noActiveDeliveries')}</p><button class="btn btn-primary mt-4" onclick="showPage('available')">${i18n.t('driver.browseParcels')}</button></div></div>`;
           } else {
             document.getElementById('currentDeliveries').innerHTML = active.map(p => `
               <div class="card">
@@ -441,23 +452,23 @@
                     ${Helpers.getStatusBadge(p.status)}
                   </div>
                   <div class="d-grid gap-2 mb-3" style="grid-template-columns: 1fr 1fr; font-size: 0.85rem;">
-                    <div><span class="text-muted">Pickup:</span> ${p.pickup_address}</div>
-                    <div><span class="text-muted">Delivery:</span> ${p.delivery_address}</div>
-                    <div><span class="text-muted">Customer:</span> ${p.customer_phone}</div>
-                    <div><span class="text-muted">Charge:</span> ${Helpers.formatCurrency(p.delivery_charge)}</div>
+                    <div><span class="text-muted">${i18n.t('driver.pickupLabel')}</span> ${p.pickup_address}</div>
+                    <div><span class="text-muted">${i18n.t('driver.deliveryLabel')}</span> ${p.delivery_address}</div>
+                    <div><span class="text-muted">${i18n.t('driver.customerLabel')}</span> ${p.customer_phone}</div>
+                    <div><span class="text-muted">${i18n.t('driver.chargeLabel')}</span> ${Helpers.formatCurrency(p.delivery_charge)}</div>
                   </div>
                   <div class="d-flex gap-2">
                     ${p.status === 'accepted' ? `
-                      <button class="btn btn-primary btn-sm" onclick="updateStatus(${p.id}, 'picked_up')">Mark Picked Up</button>
-                      <button class="btn btn-danger btn-sm" onclick="updateStatus(${p.id}, 'cancelled')">Cancel</button>
+                      <button class="btn btn-primary btn-sm" onclick="updateStatus(${p.id}, 'picked_up')">${i18n.t('driver.markPickedUp')}</button>
+                      <button class="btn btn-danger btn-sm" onclick="updateStatus(${p.id}, 'cancelled')">${i18n.t('driver.cancel')}</button>
                     ` : ''}
                     ${p.status === 'picked_up' ? `
-                      <button class="btn btn-primary btn-sm" onclick="updateStatus(${p.id}, 'in_transit')">Start Transit</button>
+                      <button class="btn btn-primary btn-sm" onclick="updateStatus(${p.id}, 'in_transit')">${i18n.t('driver.startTransit')}</button>
                     ` : ''}
                     ${p.status === 'in_transit' ? `
-                      <button class="btn btn-secondary btn-sm" onclick="openOtpModal(${p.id})">Complete Delivery</button>
+                      <button class="btn btn-secondary btn-sm" onclick="openOtpModal(${p.id})">${i18n.t('driver.completeDelivery')}</button>
                     ` : ''}
-                    <a href="tel:${p.customer_phone}" class="btn btn-outline btn-sm">Call Customer</a>
+                    <a href="tel:${p.customer_phone}" class="btn btn-outline btn-sm">${i18n.t('driver.callCustomer')}</a>
                   </div>
                 </div>
               </div>
@@ -472,7 +483,7 @@
       try {
         const res = await api.put(`/parcels/${id}/status`, { status });
         if (res.success) {
-          toast.success(`Status updated to ${Helpers.getStatusLabel(status)}`);
+          toast.success(`${i18n.t('toast.statusUpdated')} ${Helpers.getStatusLabel(status)}`);
           loadCurrentDeliveries();
           loadDriverStats();
         }
@@ -488,14 +499,14 @@
 
     async function verifyOTP() {
       const otp = document.getElementById('otpInput').value;
-      if (otp.length !== 4) { toast.warning('Enter 4-digit OTP'); return; }
+      if (otp.length !== 4) { toast.warning(i18n.t('toast.enterOtp')); return; }
 
       try {
         const verifyRes = await api.post(`/parcels/${currentParcelId}/verify-otp`, { otp });
         if (verifyRes.success) {
           const res = await api.put(`/parcels/${currentParcelId}/status`, { status: 'delivered' });
           if (res.success) {
-            toast.success('Delivery completed!');
+            toast.success(i18n.t('toast.deliveryCompleted'));
             closeModal('otpModal');
             loadCurrentDeliveries();
             loadDriverStats();
@@ -511,7 +522,7 @@
         if (res.success) {
           const container = document.getElementById('availableParcels');
           if (res.data.length === 0) {
-            container.innerHTML = '<div class="card"><div class="card-body text-center p-6"><p class="text-muted">No parcels available right now. Check back later for new delivery requests!</p></div></div>';
+            container.innerHTML = `<div class="card"><div class="card-body text-center p-6"><p class="text-muted">${i18n.t('driver.noParcelsAvailable')}</p></div></div>`;
           } else {
             container.innerHTML = res.data.map(p => `
               <div class="card animate-fade-in">
@@ -524,24 +535,24 @@
                     <div class="font-bold text-lg">${Helpers.formatCurrency(p.delivery_charge)}</div>
                   </div>
                   <div class="d-grid gap-2 mb-3" style="font-size: 0.85rem;">
-                    <div><span class="text-muted">From:</span> ${p.pickup_address}</div>
-                    <div><span class="text-muted">To:</span> ${p.delivery_address}</div>
-                    <div><span class="text-muted">Type:</span> ${p.parcel_type || 'General'} | <span class="text-muted">Weight:</span> ${p.weight || 0}kg</div>
+                    <div><span class="text-muted">${i18n.t('driver.from')}</span> ${p.pickup_address}</div>
+                    <div><span class="text-muted">${i18n.t('driver.to')}</span> ${p.delivery_address}</div>
+                    <div><span class="text-muted">${i18n.t('driver.typeLabel')}</span> ${p.parcel_type || i18n.t('driver.general')} | <span class="text-muted">${i18n.t('driver.weightLabel')}</span> ${p.weight || 0}kg</div>
                   </div>
-                  <button class="btn btn-primary btn-block" onclick="acceptParcel(${p.id})">Accept Delivery</button>
+                  <button class="btn btn-primary btn-block" onclick="acceptParcel(${p.id})">${i18n.t('driver.acceptDelivery')}</button>
                 </div>
               </div>
             `).join('');
           }
         }
-      } catch (err) { toast.error('Failed to load parcels'); }
+      } catch (err) { toast.error(i18n.t('toast.failedLoadParcels')); }
     }
 
     async function acceptParcel(id) {
       try {
         const res = await api.put(`/parcels/${id}/accept`);
         if (res.success) {
-          toast.success('Parcel accepted!');
+          toast.success(i18n.t('toast.parcelAccepted'));
           loadAvailableParcels();
           loadCurrentDeliveries();
           loadDriverStats();
@@ -556,7 +567,7 @@
         const res = await api.get('/parcels', { status });
         if (res.success) {
           document.getElementById('myParcelsTable').innerHTML = res.data.length === 0
-            ? '<tr><td colspan="7" class="table-empty"><p>No parcels found</p></td></tr>'
+            ? `<tr><td colspan="7" class="table-empty"><p>${i18n.t('driver.noParcelsFound')}</p></td></tr>`
             : res.data.map(p => `
               <tr>
                 <td class="font-mono text-sm">${p.tracking_id}</td>
@@ -569,7 +580,7 @@
               </tr>
             `).join('');
         }
-      } catch (err) { toast.error('Failed to load parcels'); }
+      } catch (err) { toast.error(i18n.t('toast.failedLoadParcels')); }
     }
 
     // Earnings
@@ -600,7 +611,7 @@
             document.getElementById('notifDot').style.display = 'none';
           }
           document.getElementById('notificationList').innerHTML = notifications.length === 0
-            ? '<div class="text-center p-6"><p class="text-muted">No notifications</p></div>'
+            ? `<div class="text-center p-6"><p class="text-muted">${i18n.t('driver.noNotifications')}</p></div>`
             : notifications.map(n => `
               <div class="notification-item ${n.is_read ? '' : 'unread'}" onclick="markNotifRead(${n.id})">
                 <div class="font-semibold text-sm">${n.title}</div>
@@ -638,8 +649,8 @@
           full_name: document.getElementById('profName').value,
           phone: document.getElementById('profPhone').value
         });
-        if (res.success) toast.success('Profile updated');
-      } catch (err) { toast.error('Failed to update'); }
+        if (res.success) toast.success(i18n.t('toast.profileUpdated'));
+      } catch (err) { toast.error(i18n.t('toast.failedUpdate')); }
     });
 
     document.getElementById('vehicleForm').addEventListener('submit', async (e) => {
@@ -650,8 +661,8 @@
           vehicle_number: document.getElementById('profVehicleNumber').value,
           license_number: document.getElementById('profLicense').value
         });
-        if (res.success) toast.success('Vehicle details updated');
-      } catch (err) { toast.error('Failed to update'); }
+        if (res.success) toast.success(i18n.t('toast.profileUpdated'));
+      } catch (err) { toast.error(i18n.t('toast.failedUpdate')); }
     });
 
     document.getElementById('passwordForm').addEventListener('submit', async (e) => {
@@ -661,13 +672,37 @@
           current_password: document.getElementById('profCurrentPw').value,
           new_password: document.getElementById('profNewPw').value
         });
-        if (res.success) { toast.success('Password updated'); e.target.reset(); }
+        if (res.success) { toast.success(i18n.t('toast.passwordUpdated')); e.target.reset(); }
       } catch (err) { toast.error(err.message); }
     });
 
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
     document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('active'); }));
+
+    // Re-render current page on language change
+    window.addEventListener('languageChanged', () => {
+      const activeSection = document.querySelector('.page-section[style*="block"]');
+      if (activeSection) {
+        const page = activeSection.id.replace('page-', '');
+        // Re-run titles update
+        const titles = {
+          overview: i18n.t('nav.dashboard'),
+          available: i18n.t('driver.availableParcels'),
+          'my-parcels': i18n.t('driver.myDeliveries'),
+          earnings: i18n.t('driver.earningsTitle'),
+          notifications: i18n.t('nav.notifications'),
+          profile: i18n.t('driver.profile')
+        };
+        document.getElementById('pageTitle').textContent = titles[page] || i18n.t('nav.dashboard');
+        // Re-render dynamic content
+        if (page === 'available') loadAvailableParcels();
+        if (page === 'my-parcels') loadMyParcels();
+        if (page === 'earnings') loadEarnings();
+        if (page === 'notifications') loadNotifications();
+        if (page === 'overview') loadCurrentDeliveries();
+      }
+    });
   </script>
   <style>
     .notification-item { padding: 12px 16px; border-bottom: 1px solid var(--border-light); cursor: pointer; transition: var(--transition); }

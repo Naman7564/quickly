@@ -3,13 +3,15 @@ const Helpers = {
   formatDate(dateStr) {
     if (!dateStr) return '-';
     const d = new Date(dateStr);
-    return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    const locale = (typeof i18n !== 'undefined') ? i18n.getLocale() : 'en-IN';
+    return d.toLocaleDateString(locale, { day: '2-digit', month: 'short', year: 'numeric' });
   },
 
   formatDateTime(dateStr) {
     if (!dateStr) return '-';
     const d = new Date(dateStr);
-    return d.toLocaleDateString('en-IN', {
+    const locale = (typeof i18n !== 'undefined') ? i18n.getLocale() : 'en-IN';
+    return d.toLocaleDateString(locale, {
       day: '2-digit', month: 'short', year: 'numeric',
       hour: '2-digit', minute: '2-digit'
     });
@@ -18,7 +20,8 @@ const Helpers = {
   formatTime(dateStr) {
     if (!dateStr) return '-';
     const d = new Date(dateStr);
-    return d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+    const locale = (typeof i18n !== 'undefined') ? i18n.getLocale() : 'en-IN';
+    return d.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
   },
 
   formatCurrency(amount) {
@@ -34,15 +37,8 @@ const Helpers = {
   },
 
   getStatusLabel(status) {
-    const labels = {
-      pending: 'Pending',
-      accepted: 'Accepted',
-      picked_up: 'Picked Up',
-      in_transit: 'In Transit',
-      delivered: 'Delivered',
-      cancelled: 'Cancelled'
-    };
-    return labels[status] || status;
+    const key = `status.${status}`;
+    return (typeof i18n !== 'undefined') ? i18n.t(key) : status;
   },
 
   getStatusBadge(status) {
@@ -76,7 +72,8 @@ const Helpers = {
 
   copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
-      toast.success('Copied to clipboard');
+      const msg = (typeof i18n !== 'undefined') ? i18n.t('toast.copied') : 'Copied to clipboard';
+      toast.success(msg);
     });
   },
 

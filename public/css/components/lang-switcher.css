@@ -1,0 +1,98 @@
+/* Language Switcher - Pill Toggle */
+.lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  background: var(--bg-secondary, #f1f5f9);
+  border-radius: var(--radius-full, 9999px);
+  padding: 3px;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.lang-option {
+  position: relative;
+  z-index: 1;
+  padding: 5px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary, #64748b);
+  cursor: pointer;
+  border-radius: var(--radius-full, 9999px);
+  transition: color 0.25s ease;
+  white-space: nowrap;
+  font-family: var(--font);
+}
+
+.lang-option.active {
+  color: #fff;
+}
+
+.lang-slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  height: calc(100% - 6px);
+  background: var(--primary, #4F46E5);
+  border-radius: var(--radius-full, 9999px);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+/* Auth page variant - positioned top right */
+.auth-lang {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+}
+
+/* Topbar variant - compact */
+.topbar-right .lang-switcher {
+  margin-right: 4px;
+}
+
+/* Landing nav variant */
+.nav-actions .lang-switcher {
+  margin-right: 8px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+  .auth-lang {
+    top: 12px;
+    right: 12px;
+  }
+
+  .lang-option {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+  }
+
+  .nav-actions-mobile .lang-switcher {
+    margin-bottom: 8px;
+  }
+}
+
+/* Smooth text transition during language switch */
+.i18n-switching [data-i18n],
+.i18n-switching [data-i18n-placeholder] {
+  transition: opacity 0.15s ease;
+  opacity: 0;
+}
+
+/* Dark mode */
+[data-theme="dark"] .lang-switcher {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .lang-option {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="dark"] .lang-option.active {
+  color: #fff;
+}
