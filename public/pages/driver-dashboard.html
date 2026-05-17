@@ -110,17 +110,10 @@
         <!-- Overview -->
         <div class="page-section" id="page-overview">
           <div class="page-header">
-            <div class="d-flex justify-between items-center flex-wrap gap-4">
+            <div class="d-flex justify-between items-center">
               <div>
                 <h1>Welcome, <span id="welcomeName">Driver</span>!</h1>
                 <p>Manage your deliveries and track earnings</p>
-              </div>
-              <div class="online-toggle">
-                <label class="toggle-switch">
-                  <input type="checkbox" id="onlineToggle" onchange="toggleOnline()">
-                  <span class="toggle-slider"></span>
-                </label>
-                <span id="onlineLabel" class="font-semibold text-sm">Offline</span>
               </div>
             </div>
           </div>
@@ -390,18 +383,6 @@
     const savedTheme = localStorage.getItem('quickly_theme');
     if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
 
-    // Online toggle
-    async function toggleOnline() {
-      const isOnline = document.getElementById('onlineToggle').checked;
-      document.getElementById('onlineLabel').textContent = isOnline ? 'Online' : 'Offline';
-      document.getElementById('onlineLabel').className = `font-semibold text-sm ${isOnline ? 'text-success' : 'text-muted'}`;
-
-      try {
-        await api.put('/drivers/toggle-online', { is_online: isOnline });
-        toast.info(isOnline ? 'You are now online' : 'You are now offline');
-      } catch (err) { toast.error('Failed to update status'); }
-    }
-
     // Stats
     async function loadDriverStats() {
       try {
@@ -412,9 +393,6 @@
           document.getElementById('statTodayEarnings').textContent = Helpers.formatCurrency(res.data.today_earnings);
           document.getElementById('statRating').textContent = (res.data.rating || 5).toFixed(1);
           document.getElementById('activeCount').textContent = res.data.active_parcels;
-          document.getElementById('onlineToggle').checked = res.data.is_online;
-          document.getElementById('onlineLabel').textContent = res.data.is_online ? 'Online' : 'Offline';
-          document.getElementById('onlineLabel').className = `font-semibold text-sm ${res.data.is_online ? 'text-success' : 'text-muted'}`;
         }
       } catch (err) { console.error(err); }
     }
@@ -509,7 +487,7 @@
         if (res.success) {
           const container = document.getElementById('availableParcels');
           if (res.data.length === 0) {
-            container.innerHTML = '<div class="card"><div class="card-body text-center p-6"><p class="text-muted">No parcels available right now. Stay online to receive new requests!</p></div></div>';
+            container.innerHTML = '<div class="card"><div class="card-body text-center p-6"><p class="text-muted">No parcels available right now. Check back later for new delivery requests!</p></div></div>';
           } else {
             container.innerHTML = res.data.map(p => `
               <div class="card animate-fade-in">
@@ -668,13 +646,6 @@
     document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('active'); }));
   </script>
   <style>
-    .online-toggle { display: flex; align-items: center; gap: 12px; }
-    .toggle-switch { position: relative; width: 52px; height: 28px; }
-    .toggle-switch input { opacity: 0; width: 0; height: 0; }
-    .toggle-slider { position: absolute; inset: 0; background: var(--border); border-radius: 14px; cursor: pointer; transition: var(--transition); }
-    .toggle-slider::before { content: ''; position: absolute; width: 22px; height: 22px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: var(--transition); box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
-    .toggle-switch input:checked + .toggle-slider { background: var(--secondary); }
-    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(24px); }
     .notification-item { padding: 12px 16px; border-bottom: 1px solid var(--border-light); cursor: pointer; transition: var(--transition); }
     .notification-item:hover { background: var(--bg-hover); }
     .notification-item.unread { background: rgba(79, 70, 229, 0.05); border-left: 3px solid var(--primary); }

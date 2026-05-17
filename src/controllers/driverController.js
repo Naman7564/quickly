@@ -1,24 +1,6 @@
 const { getDb, saveDb } = require('../db/connection');
 const { formatResponse, calculateDistance } = require('../utils/helpers');
 
-exports.toggleOnline = async (req, res) => {
-  try {
-    const { is_online, latitude, longitude } = req.body;
-    const db = await getDb();
-
-    db.run(
-      'UPDATE driver_profiles SET is_online = ?, current_latitude = ?, current_longitude = ? WHERE user_id = ?',
-      [is_online ? 1 : 0, latitude || null, longitude || null, req.user.id]
-    );
-
-    saveDb();
-    res.json(formatResponse(true, null, is_online ? 'You are now online' : 'You are now offline'));
-  } catch (err) {
-    console.error('Toggle online error:', err);
-    res.status(500).json(formatResponse(false, null, 'Failed to update status'));
-  }
-};
-
 exports.updateLocation = async (req, res) => {
   try {
     const { latitude, longitude } = req.body;
