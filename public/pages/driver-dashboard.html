@@ -310,6 +310,26 @@
     </main>
   </div>
 
+  <!-- Bottom Navigation - Mobile -->
+  <nav class="bottom-nav" id="bottomNav">
+    <button class="bottom-nav-item active" data-page="overview" onclick="showPage('overview')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </button>
+    <button class="bottom-nav-item" data-page="available" onclick="showPage('available')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+      <span>Parcels</span>
+    </button>
+        <button class="bottom-nav-item" data-page="earnings" onclick="showPage('earnings')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span>Earnings</span>
+    </button>
+    <button class="bottom-nav-item" data-page="profile" onclick="showPage('profile')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </button>
+  </nav>
+
   <!-- OTP Modal -->
   <div class="modal-overlay" id="otpModal">
     <div class="modal modal-sm">
@@ -352,6 +372,10 @@
       document.getElementById(`page-${page}`).style.display = 'block';
       document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
       document.querySelector(`[data-page="${page}"]`)?.classList.add('active');
+
+      // Update bottom nav active state
+      document.querySelectorAll('.bottom-nav-item').forEach(n => n.classList.remove('active'));
+      document.querySelector(`.bottom-nav-item[data-page="${page}"]`)?.classList.add('active');
 
       const titles = {
         overview: 'Dashboard', available: 'Available Parcels', 'my-parcels': 'My Deliveries',
