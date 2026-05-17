@@ -267,18 +267,39 @@
 
 .hamburger {
   display: none;
-  background: none;
+  background: var(--bg-hover);
   border: none;
-  font-size: clamp(1.2rem, 1.1rem + 0.3vw, 1.4rem);
-  color: var(--text);
   cursor: pointer;
-  padding: clamp(8px, 1vw, 12px);
+  padding: 10px;
   flex-shrink: 0;
-  min-width: 44px;
-  min-height: 44px;
+  min-width: 55px;
+  min-height: 55px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--radius);
+  transition: all 0.2s ease;
+}
+
+.hamburger svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--primary);
+  stroke-width: 2;
+  fill: none;
+}
+
+.hamburger:hover {
+  background: var(--primary);
+}
+
+.hamburger:hover svg {
+  stroke: white;
+}
+
+.hamburger:active {
+  transform: scale(0.95);
+  background: var(--primary-dark, #4338ca);
 }
 
 /* Page Content */
