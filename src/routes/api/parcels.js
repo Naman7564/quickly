@@ -8,7 +8,6 @@ router.post('/', authorize('shop_owner'), parcelController.createParcel);
 router.get('/', parcelController.getParcels);
 router.get('/:id', parcelController.getParcelById);
 router.put('/:id/status', authorize('driver', 'shop_owner'), parcelController.updateStatus);
-router.put('/:id/assign', authorize('shop_owner'), parcelController.assignDriver);
 router.put('/:id/accept', authorize('driver'), parcelController.acceptParcel);
 router.put('/:id/cancel', parcelController.cancelParcel);
 router.post('/:id/verify-otp', authorize('driver'), parcelController.verifyOTP);

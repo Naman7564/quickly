@@ -461,18 +461,6 @@
     </div>
   </div>
 
-  <!-- Assign Driver Modal -->
-  <div class="modal-overlay" id="assignModal">
-    <div class="modal">
-      <div class="modal-header">
-        <h3>Assign Driver</h3>
-        <button class="modal-close" onclick="closeModal('assignModal')">&times;</button>
-      </div>
-      <div class="modal-body" id="assignModalBody">
-        <div class="text-center p-6"><div class="spinner mx-auto"></div></div>
-      </div>
-    </div>
-  </div>
 
   <!-- UPI Payment Modal -->
   <div class="modal-overlay" id="paymentModal">
@@ -755,12 +743,8 @@
                 <span class="delivery-customer">${p.customer_name}</span>
                 <span class="delivery-charge">${Helpers.formatCurrency(p.delivery_charge)}</span>
               </div>
-              <div class="delivery-card-row delivery-card-bottom">
+              <div class="delivery-card-row">
                 <span class="delivery-date">${Helpers.formatDate(p.created_at)}</span>
-                <div class="delivery-actions">
-                  <button class="btn btn-ghost btn-icon delivery-action-btn" onclick="event.stopPropagation();viewParcel(${p.id})" title="View">&#128065;</button>
-                  ${p.status === 'pending' ? `<button class="btn btn-ghost btn-icon delivery-action-btn" onclick="event.stopPropagation();openAssignModal(${p.id})" title="Assign Driver">&#128666;</button>` : ''}
-                </div>
               </div>
             </div>
           `).join('');
@@ -811,22 +795,12 @@
 
     function getParcelCardActions(p) {
       let actions = '';
-      if (p.status === 'pending') {
-        actions += `<button class="parcel-action-btn parcel-action-assign" onclick="event.stopPropagation();openAssignModal(${p.id})" title="Assign Driver">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
-          Assign
-        </button>`;
-      }
       if (['pending', 'accepted'].includes(p.status)) {
         actions += `<button class="parcel-action-btn parcel-action-cancel" onclick="event.stopPropagation();cancelParcel(${p.id})" title="Cancel">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           Cancel
         </button>`;
       }
-      actions += `<button class="parcel-action-btn parcel-action-view" onclick="event.stopPropagation();viewParcel(${p.id})" title="View Details">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        View
-      </button>`;
       return actions;
     }
 
@@ -1045,53 +1019,6 @@
         }
       } catch (err) {
         toast.error('Failed to load parcel details');
-      }
-    }
-
-    // Assign Driver
-    async function openAssignModal(parcelId) {
-      openModal('assignModal');
-      document.getElementById('assignModalBody').innerHTML = '<div class="text-center p-6"><div class="spinner mx-auto"></div></div>';
-
-      try {
-        const res = await api.get('/drivers/nearby');
-        if (res.success && res.data.length > 0) {
-          document.getElementById('assignModalBody').innerHTML = `
-            <div class="d-grid gap-3">
-              ${res.data.map(d => `
-                <div class="d-flex items-center justify-between p-3 rounded border" style="border-color: var(--border-light);">
-                  <div class="d-flex items-center gap-3">
-                    ${Helpers.generateAvatar(d.full_name, 40)}
-                    <div>
-                      <div class="font-semibold">${d.full_name}</div>
-                      <div class="text-xs text-muted">${d.vehicle_type} - ${d.vehicle_number || 'N/A'}</div>
-                      <div class="text-xs text-muted">Rating: ${d.rating} | ${d.total_deliveries} deliveries</div>
-                    </div>
-                  </div>
-                  <button class="btn btn-primary btn-sm" onclick="assignDriver(${parcelId}, ${d.user_id})">Assign</button>
-                </div>
-              `).join('')}
-            </div>
-          `;
-        } else {
-          document.getElementById('assignModalBody').innerHTML = '<div class="text-center p-6"><p class="text-muted">No drivers available nearby</p></div>';
-        }
-      } catch (err) {
-        document.getElementById('assignModalBody').innerHTML = '<div class="text-center p-6"><p class="text-danger">Failed to load drivers</p></div>';
-      }
-    }
-
-    async function assignDriver(parcelId, driverId) {
-      try {
-        const res = await api.put(`/parcels/${parcelId}/assign`, { driver_id: driverId });
-        if (res.success) {
-          toast.success('Driver assigned!');
-          closeModal('assignModal');
-          loadParcels();
-          loadDashboard();
-        }
-      } catch (err) {
-        toast.error('Failed to assign driver', err.message);
       }
     }
 

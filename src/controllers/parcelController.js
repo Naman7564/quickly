@@ -232,37 +232,6 @@ exports.updateStatus = async (req, res) => {
   }
 };
 
-exports.assignDriver = async (req, res) => {
-  try {
-    const { driver_id } = req.body;
-    const db = await getDb();
-
-    const parcel = db.exec('SELECT * FROM parcels WHERE id = ? AND shop_id = ?', [req.params.id, req.user.id]);
-    if (parcel.length === 0 || parcel[0].values.length === 0) {
-      return res.status(404).json(formatResponse(false, null, 'Parcel not found'));
-    }
-
-    db.run('UPDATE parcels SET driver_id = ?, status = ?, updated_at = ? WHERE id = ?',
-      [driver_id, 'accepted', new Date().toISOString(), req.params.id]);
-
-    db.run(
-      'INSERT INTO parcel_history (parcel_id, status, note) VALUES (?, ?, ?)',
-      [req.params.id, 'accepted', 'Driver assigned']
-    );
-
-    db.run(
-      'INSERT INTO notifications (user_id, title, message, type, link) VALUES (?, ?, ?, ?, ?)',
-      [driver_id, 'New Delivery Assigned', 'You have a new delivery assignment', 'new_parcel', '/driver']
-    );
-
-    saveDb();
-    res.json(formatResponse(true, null, 'Driver assigned successfully'));
-  } catch (err) {
-    console.error('Assign driver error:', err);
-    res.status(500).json(formatResponse(false, null, 'Failed to assign driver'));
-  }
-};
-
 exports.acceptParcel = async (req, res) => {
   try {
     const db = await getDb();

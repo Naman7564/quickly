@@ -556,15 +556,6 @@
   transform: translateY(-1px);
 }
 
-.parcel-action-assign {
-  background: rgba(59, 130, 246, 0.1);
-  color: var(--info);
-}
-
-.parcel-action-assign:hover {
-  background: rgba(59, 130, 246, 0.15);
-}
-
 .parcel-action-cancel {
   background: rgba(239, 68, 68, 0.08);
   color: var(--danger);
@@ -574,15 +565,6 @@
   background: rgba(239, 68, 68, 0.14);
 }
 
-.parcel-action-view {
-  background: var(--bg-hover);
-  color: var(--text-secondary);
-}
-
-.parcel-action-view:hover {
-  background: var(--border);
-  color: var(--text);
-}
 
 /* ============================================
    Empty State - Premium
@@ -903,19 +885,6 @@
 .delivery-date {
   font-size: clamp(0.72rem, 0.68rem + 0.2vw, 0.82rem);
   color: var(--text-secondary);
-}
-
-.delivery-actions {
-  display: flex;
-  gap: 4px;
-  flex-shrink: 0;
-}
-
-.delivery-action-btn {
-  width: clamp(34px, 3.5vw, 40px) !important;
-  height: clamp(34px, 3.5vw, 40px) !important;
-  font-size: clamp(0.85rem, 0.8rem + 0.15vw, 1rem) !important;
-  border-radius: var(--radius-sm) !important;
 }
 
 .delivery-empty {
